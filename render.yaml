@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: quizzax-platform
+    env: node
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # User must provide this in the Render dashboard
+      - key: PORT
+        value: 10000

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzax Presentation - Team Alpha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --bg: #0f172a;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            page-break-after: always;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        p {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        li {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .code-snippet {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        .accent {
+            color: var(--primary);
+        }
+
+        @media print {
+            .slide {
+                border: none;
+                min-height: 0;
+                height: 100vh;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            li,
+            p {
+                color: black !important;
+            }
+
+            .slide {
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide">
+        <h1>Quizzax: Interactive Assessment Platform</h1>
+        <h2>Project Presentation - Team Alpha</h2>
+        <p>Course: Software Engineering (2025/2026)</p>
+        <p>Instructor: Mr. HO Mafua</p>
+    </div>
+
+    <div class="slide">
+        <h2>Project Overview & Objectives</h2>
+        <h3>The Problem</h3>
+        <p>Students need a modern, engaging way to test their knowledge in Engineering subjects.</p>
+        <h3>Our Solution</h3>
+        <ul>
+            <li>Immediate feedback with detailed explanations.</li>
+            <li>Real-time score tracking and performance history.</li>
+            <li>Competitive social element via a global leaderboard.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>SDLC Phase 1: Planning</h2>
+        <h3>Requirements Analysis</h3>
+        <ul>
+            <li><strong>Functional</strong>: Secure login (Matric No), Subject selection, Interactive quiz, Persistence
+                in DB.</li>
+            <li><strong>Non-Functional</strong>: &lt; 200ms API response, High-fidelity UI, Cross-browser compatibility.
+            </li>
+            <li><strong>Scope</strong>: Focused on core student experience and result reliability.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>Our Technology Stack - What is MERN?</h2>
+        <p>MERN is a powerful collection of JavaScript-based technologies used to build modern web applications.</p>
+        <ul>
+            <li><strong>M (MongoDB)</strong>: Our <strong>Database</strong>. It stores all student records, quiz
+                questions, and scores in a flexible, high-speed format.</li>
+            <li><strong>E (Express.js)</strong>: Our <strong>Server Framework</strong>. It acts as the brain of the
+                backend, routing user requests and handling logic.</li>
+            <li><strong>R (React.js)</strong>: Our <strong>Frontend Library</strong>. It powers the user interface,
+                creating the smooth, interactive "Glassmorphism" experience.</li>
+            <li><strong>N (Node.js)</strong>: Our <strong>Runtime Environment</strong>. It allows us to run JavaScript
+                on the server, ensuring the app is fast and scalable.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>Why we chose the MERN Stack?</h2>
+        <ul>
+            <li><strong>Single Language (JavaScript)</strong>: We use one language across the entire project, making
+                development faster and more consistent.</li>
+            <li><strong>Real-Time Data</strong>: MongoDB handles our complex quiz data naturally, allowing for instant
+                feedback and scoring.</li>
+            <li><strong>Scalability</strong>: The stack is designed to handle hundreds of students simultaneously
+                without slowing down.</li>
+            <li><strong>Modern User Experience</strong>: React ensures the app feels "alive" with smooth transitions and
+                zero-page reloads.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>SDLC Phase 2: Database Design</h2>
+        <h3>Entity Relationship</h3>
+        <ul>
+            <li><strong>User</strong>: Matric Number primary key, Stores history array of attempts.</li>
+            <li><strong>Quiz</strong>: Stores subject metadata and nested question arrays.</li>
+            <li><strong>Relationship</strong>: One-to-Many between User and Attempt history.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>UI/UX Design Rationale</h2>
+        <h3>Premium Aesthetics</h3>
+        <ul>
+            <li><strong>Glassmorphism</strong>: Blur effects and vibrant gradients.</li>
+            <li><strong>Mobile-First</strong>: Optimized for vertical handheld usage.</li>
+            <li><strong>Immediate Feedback</strong>: Color-coded results (Green/Red) and instant explanations.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>SDLC Phase 3: Implementation</h2>
+        <h3>Key Features</h3>
+        <ul>
+            <li><strong>Dynamic Scoring</strong>: On-the-fly calculation for speed and security.</li>
+            <li><strong>Two-Step Validation</strong>: Check -> Learn -> Proceed flow.</li>
+            <li><strong>Auto-Save</strong>: Session recovery via LocalStorage integrations.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>SDLC Phase 4: Testing & QA</h2>
+        <h3>Strategy & Results</h3>
+        <ul>
+            <li><strong>Unit Testing</strong>: API verification via Postman.</li>
+            <li><strong>Integration</strong>: Full user flow (Login to Result) verification.</li>
+            <li><strong>Success Rate</strong>: 100% Pass rate on all 7 core functional test cases.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>Challenges & Solutions</h2>
+        <ul>
+            <li><strong>Logo Blending</strong>: Developed "Pure Burn" CSS multiplication for dark themes.</li>
+            <li><strong>Data Persistence</strong>: Implementation of real-time auto-save background sync.</li>
+            <li><strong>Lesson</strong>: Early requirement clarity prevents technical debt.</li>
+        </ul>
+    </div>
+
+    <div class="slide">
+        <h2>Development & Future</h2>
+        <ul>
+            <li><strong>Ready for Rollout</strong>: Full documentation and user manual completed.</li>
+            <li><strong>Roadmap</strong>: Admin dashboard for custom uploads, AI-driven explanations.</li>
+        </ul>
+        <h1>Thank You!</h1>
+        <p>Team Alpha - Open for Q&A</p>
+    </div>
+
+</body>
+
+</html>

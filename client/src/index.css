@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-app-bg text-app-dark font-sans;
+  }
+}
+
+.glass-card {
+  @apply bg-white/40 backdrop-blur-lg border border-white/50 shadow-xl rounded-3xl;
+}
+
+.btn-primary {
+  @apply bg-app-dark text-white px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-all active:scale-95;
+}
+
+.input-field {
+  @apply w-full px-5 py-3 rounded-xl bg-white/60 border border-transparent focus:border-app-dark focus:outline-none transition-all placeholder-app-dark/50;
+}

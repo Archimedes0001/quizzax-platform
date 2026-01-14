@@ -1,0 +1,19 @@
+{
+    "name": "quizzax-assessment-platform",
+    "version": "1.0.0",
+    "description": "Student Assessment Platform - MERN Stack",
+    "main": "server/index.js",
+    "scripts": {
+        "start": "node server/index.js",
+        "install-server": "cd server && npm install",
+        "install-client": "cd client && npm install",
+        "build": "npm run install-server && npm run install-client"
+    },
+    "keywords": [
+        "quiz",
+        "assessment",
+        "mern"
+    ],
+    "author": "Team Alpha",
+    "license": "MIT"
+}

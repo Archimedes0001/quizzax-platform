@@ -1,0 +1,180 @@
+/* ========== PREMIUM DARK MODE PROFILE ========== */
+
+.profile-page {
+    min-height: 100vh;
+    padding: 1.5rem;
+    padding-bottom: 6rem;
+    background-color: #0f172a;
+    /* Slate 900 */
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+/* Header & Navigation */
+.profile-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-header h1 {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Card Design */
+.profile-card-new {
+    background: rgba(30, 41, 59, 0.7);
+    /* Slate 800 with opacity */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border-radius: 1.5rem;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+/* Glow effect behind avatar */
+.profile-card-new::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    background: #3b82f6;
+    filter: blur(80px);
+    opacity: 0.4;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.profile-avatar-large {
+    width: 7rem;
+    height: 7rem;
+    background: #1e293b;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+    /* Blue outer ring */
+    color: #60a5fa;
+    /* Blue 400 */
+    margin-bottom: 1.5rem;
+    z-index: 2;
+}
+
+.profile-name {
+    color: white;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    z-index: 2;
+}
+
+.profile-role-badge {
+    background: rgba(96, 165, 250, 0.15);
+    /* Blue tint */
+    color: #60a5fa;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    padding: 0.25rem 1rem;
+    z-index: 2;
+}
+
+/* Stats Row */
+.profile-stats-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    z-index: 2;
+}
+
+.stat-value {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.stat-label {
+    color: #94a3b8;
+    /* Slate 400 */
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Details List */
+.detail-item-new {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.detail-item-new:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.detail-icon-box {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    box-shadow: none;
+    border-radius: 0.75rem;
+}
+
+.detail-label-sm {
+    color: #94a3b8;
+}
+
+.detail-value-lg {
+    color: white;
+}
+
+/* Logout Button */
+.logout-btn-fancy {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.logout-btn-fancy:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* Override bottom nav for dark mode integration */
+.bottom-nav {
+    background: #1e293b;
+    /* Slate 800 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background: #3b82f6;
+    /* Blue 500 */
+    color: white;
+}
