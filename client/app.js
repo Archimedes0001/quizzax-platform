@@ -1218,8 +1218,13 @@ async function init() {
         // Load quizzes
         try {
             AppState.quizzes = await API.getQuizzes();
-            const lastPage = Storage.getPage();
-            Router.navigate(lastPage && lastPage !== 'login' ? lastPage : 'home');
+
+            // Check for unfinished sessions first
+            if (!checkResumeSession(savedUser)) {
+                const lastPage = Storage.getPage();
+                // Safety: If last page was 'quiz', go home instead to avoid loading trap
+                Router.navigate(lastPage && lastPage !== 'login' && lastPage !== 'quiz' ? lastPage : 'home');
+            }
         } catch (err) {
             showToast('Session expired or server error. Please login again.', 'error');
             Storage.clearUser();
