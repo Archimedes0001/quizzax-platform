@@ -1526,3 +1526,98 @@ svg {
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(59, 130, 246, 0.5);
 }
+
+/* ========== MOBILE RESPONSIVENESS (BREAKPOINTS) ========== */
+
+@media (max-width: 1024px) {
+    .container-wide {
+        max-width: 100%;
+        padding: 0 1.25rem;
+    }
+
+    .quiz-layout {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Layout Adjustments */
+    .quiz-layout {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .quiz-sidebar {
+        width: 100%;
+        position: relative;
+        top: 0;
+        max-height: none;
+        order: 1;
+        /* Sidebar on top */
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .quiz-main {
+        width: 100%;
+        max-width: 100%;
+        order: 2;
+        /* Main content below sidebar */
+    }
+
+    /* Quiz Card Adjustments */
+    .quiz-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Result Page Adjustments */
+    .result-stats-refined {
+        grid-template-columns: 1fr;
+    }
+
+    .result-title-main {
+        font-size: 1.75rem;
+    }
+
+    /* Performance Page / Leaderboard Table Scrolling */
+    .stats-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Bottom Navigation Padding */
+    #app:not(.login-active) {
+        padding-bottom: 7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header-new h1 {
+        font-size: 1.75rem;
+    }
+
+    .stat-card-new {
+        padding: 1rem;
+    }
+
+    .quiz-sidebar {
+        padding: 1.25rem;
+    }
+
+    .nav-grid {
+        grid-template-columns: repeat(6, 1fr);
+        /* More cells per row on small screens */
+        gap: 0.5rem;
+    }
+
+    .sidebar-title {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .login-logo {
+        height: 120px;
+        /* Scale down logo on small phones */
+    }
+}
