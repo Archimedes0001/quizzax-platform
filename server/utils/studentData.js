@@ -1,4 +1,7 @@
 const students = [
+    // Special Authorization
+    { matricNumber: "U22MTH1001", name: "Authorized User", department: "Mathematics" },
+
     // Aerospace Engineering
     { matricNumber: "U24AE1015", name: "Eqbe Ebalam", department: "Aerospace Engineering" },
     { matricNumber: "U24AE1037", name: "OLUWU JOSHEPH", department: "Aerospace Engineering" },
