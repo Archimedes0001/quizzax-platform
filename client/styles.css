@@ -45,6 +45,9 @@ body {
 
 body.login-active {
     overflow: hidden;
+    /* Force scrollbar space to prevent flicker */
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
 }
 
 
