@@ -859,6 +859,9 @@ async function navigateToQuiz(subject) {
     // Confirmation Prompt
     if (!confirm(`Are you sure you want to start the ${subject} quiz?`)) return;
 
+    // Clear any stale local progress before starting a new one
+    Storage.clearQuizProgress();
+
     try {
         const quizData = await API.getQuiz(subject);
         AppState.currentQuiz = quizData;
@@ -897,6 +900,7 @@ async function navigateToQuiz(subject) {
         }, 1000);
 
         Router.navigate('quiz', { subject });
+        triggerSave(); // Force immediate persistence
     } catch (err) {
         showToast('Failed to load quiz: ' + err.message, 'error');
     }
