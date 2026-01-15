@@ -9,6 +9,7 @@ const Quiz = require('./models/Quiz');
 const AppError = require('./utils/AppError');
 const asyncHandler = require('./middleware/asyncHandler');
 const errorHandler = require('./middleware/errorHandler');
+const students = require('./utils/studentData');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,44 +24,52 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/quiz_app', 
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log('MongoDB Connected'))
+    .then(() => {
+        console.log('MongoDB Connected');
+        seedUsers(); // Run user sync on connect
+    })
     .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Helpers
-const randomNames = [
-    "Alex", "Jordan", "Taylor", "Morgan", "Casey",
-    "Riley", "Jamie", "Quinn", "Avery", "Peyton",
-    "Blake", "Hayden", "Cameron", "Reese", "Skyler"
-];
-const generateRandomName = () => randomNames[Math.floor(Math.random() * randomNames.length)];
+// Seeding Function for Users
+const seedUsers = async () => {
+    try {
+        console.log('[Seeding] Synchronizing student database...');
+        for (const student of students) {
+            await User.findOneAndUpdate(
+                { matricNumber: student.matricNumber },
+                {
+                    name: student.name,
+                    department: student.department,
+                    level: '100L' // Default level
+                },
+                { upsert: true, new: true }
+            );
+        }
+        console.log('[Seeding] Student database synchronized.');
+    } catch (err) {
+        console.error('[Seeding] Error synchronizing students:', err);
+    }
+};
+
+// ...
 
 // Routes
 
-// 1. Login (Find or Create User)
+// 1. Login (Strict validation against student database)
 app.post('/api/login', asyncHandler(async (req, res, next) => {
-    const { matricNumber, department, level } = req.body;
-    if (!matricNumber || !department) {
-        return next(new AppError('Missing fields', 400));
+    const { matricNumber } = req.body;
+    if (!matricNumber) {
+        return next(new AppError('Matric number is required', 400));
     }
 
-    let user = await User.findOne({ matricNumber });
+    // Find user in the synchronized database
+    const user = await User.findOne({ matricNumber });
+
     if (!user) {
-        user = new User({
-            matricNumber,
-            department,
-            level,
-            name: generateRandomName() // Assign random name
-        });
-        await user.save();
-    } else {
-        console.log('[Login] Updating existing user');
-        user.level = level || user.level;
-        // Update name if it's the default "Student" or missing
-        if (!user.name || user.name === 'Student') {
-            user.name = generateRandomName();
-        }
-        await user.save();
+        return next(new AppError('Unauthorized: Matric number not found in student database.', 403));
     }
+
+    console.log(`[Login] Authorized access for: ${user.name} (${user.matricNumber})`);
     res.json(user);
 }));
 

@@ -77,11 +77,11 @@ const API = {
         }
     },
 
-    async login(matricNumber, department, level) {
+    async login(matricNumber) {
         return this.request('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ matricNumber, department, level })
+            body: JSON.stringify({ matricNumber })
         });
     },
 
@@ -345,29 +345,7 @@ function LoginPage() {
                                 type="text"
                                 id="matricNumber"
                                 class="login-input"
-                                placeholder="e.g. 19/SCI01/001"
-                                required
-                            />
-                        </div>
-
-                        <div class="form-group-refined">
-                            <label>Department</label>
-                            <input
-                                type="text"
-                                id="department"
-                                class="login-input"
-                                placeholder="e.g. Computer Science"
-                                required
-                            />
-                        </div>
-
-                        <div class="form-group-refined">
-                            <label>Level</label>
-                            <input
-                                type="text"
-                                id="level"
-                                class="login-input"
-                                placeholder="e.g. 100L"
+                                placeholder="Enter your Matric Number"
                                 required
                             />
                         </div>
@@ -813,8 +791,6 @@ async function handleLogin(e) {
     e.preventDefault();
 
     const matricNumber = document.getElementById('matricNumber').value;
-    const department = document.getElementById('department').value;
-    const level = document.getElementById('level').value;
     const loginButton = document.getElementById('loginButton');
     const loginText = document.getElementById('loginText');
 
@@ -822,7 +798,7 @@ async function handleLogin(e) {
     loginText.innerHTML = Icons.Spinner;
 
     try {
-        const data = await API.login(matricNumber, department, level);
+        const data = await API.login(matricNumber);
         if (data.matricNumber) {
             Storage.saveUser(data);
             AppState.user = data;
