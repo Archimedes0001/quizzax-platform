@@ -1117,8 +1117,10 @@ function render() {
 
     // Manage login-active class for clean layout
     if (AppState.currentPage === 'login') {
+        document.documentElement.classList.add('login-active');
         document.body.classList.add('login-active');
     } else {
+        document.documentElement.classList.remove('login-active');
         document.body.classList.remove('login-active');
     }
 

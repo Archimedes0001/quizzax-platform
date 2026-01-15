@@ -43,6 +43,7 @@ body {
     background-attachment: fixed;
 }
 
+html.login-active,
 body.login-active {
     overflow: hidden !important;
     height: 100vh;
@@ -51,6 +52,12 @@ body.login-active {
 
 body.login-active #app {
     overflow: hidden;
+}
+
+body.login-active .container {
+    overflow: hidden !important;
+    min-height: 100vh;
+    max-height: 100vh;
 }
 
 
