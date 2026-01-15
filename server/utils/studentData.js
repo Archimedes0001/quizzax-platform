@@ -102,7 +102,6 @@ const students = [
     { matricNumber: "U23AUE1027", name: "Muhammed Nasir", department: "Automotive Engineering" },
     { matricNumber: "U24AUE1019", name: "Richard God'sqift", department: "Automotive Engineering" },
     { matricNumber: "U24AUE1011", name: "Sofolabo Oluwadamilola", department: "Automotive Engineering" },
-    { matricNumber: "U23AUE1042", name: "Maryam Yusuf", department: "Automotive Engineering" },
     { matricNumber: "U24AUE1014", name: "Anani Isabel", department: "Automotive Engineering" },
     { matricNumber: "U24AUE1004", name: "Green Olavinka", department: "Automotive Engineering" },
     { matricNumber: "U24AUE1049", name: "NKEMDIRIM KELVIN", department: "Automotive Engineering" },
