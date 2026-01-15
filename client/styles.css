@@ -44,10 +44,13 @@ body {
 }
 
 body.login-active {
+    overflow: hidden !important;
+    height: 100vh;
+    width: 100vw;
+}
+
+body.login-active #app {
     overflow: hidden;
-    /* Force scrollbar space to prevent flicker */
-    overflow-y: scroll;
-    scrollbar-gutter: stable;
 }
 
 
