@@ -161,12 +161,8 @@ app.get('/api/leaderboard', asyncHandler(async (req, res, next) => {
 app.get('/api/performance', asyncHandler(async (req, res, next) => {
     const users = await User.find({}).sort({ matricNumber: 1 });
 
-    // Filter to only users who have logged in at least once
-    // (updatedAt will differ from createdAt after first login)
-    const activeUsers = users.filter(user =>
-        user.updatedAt.getTime() !== user.createdAt.getTime() ||
-        user.history.length > 0
-    );
+    // Filter to only users who have taken at least one quiz
+    const activeUsers = users.filter(user => user.history.length > 0);
 
     // Transform into performance report
     const report = activeUsers.map(user => {
