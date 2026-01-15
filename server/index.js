@@ -34,6 +34,17 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/quiz_app', 
 const seedUsers = async () => {
     try {
         console.log('[Seeding] Synchronizing student database...');
+
+        // Get all authorized matric numbers
+        const authorizedMatricNumbers = students.map(s => s.matricNumber);
+
+        // Remove ALL unauthorized users
+        const deleteResult = await User.deleteMany({
+            matricNumber: { $nin: authorizedMatricNumbers }
+        });
+        console.log(`[Seeding] Removed ${deleteResult.deletedCount} unauthorized users`);
+
+        // Sync authorized students
         for (const student of students) {
             await User.findOneAndUpdate(
                 { matricNumber: student.matricNumber },
@@ -45,7 +56,7 @@ const seedUsers = async () => {
                 { upsert: true, new: true }
             );
         }
-        console.log('[Seeding] Student database synchronized.');
+        console.log(`[Seeding] Synchronized ${students.length} authorized students.`);
     } catch (err) {
         console.error('[Seeding] Error synchronizing students:', err);
     }
