@@ -169,6 +169,19 @@ const Storage = {
 
     getPage() {
         return localStorage.getItem('currentPage');
+    },
+
+    saveQuizProgress(data) {
+        localStorage.setItem('quizProgress', JSON.stringify(data));
+    },
+
+    getQuizProgress() {
+        const data = localStorage.getItem('quizProgress');
+        return data ? JSON.parse(data) : null;
+    },
+
+    clearQuizProgress() {
+        localStorage.removeItem('quizProgress');
     }
 };
 
@@ -231,6 +244,10 @@ function triggerSave() {
         flaggedQuestions: flaggedArr
     };
 
+    // Instant local backup
+    Storage.saveQuizProgress(sessionData);
+
+    // Background server sync
     API.saveProgress(AppState.user.matricNumber, sessionData);
 }
 
@@ -832,6 +849,7 @@ async function handleLogin(e) {
 
 function handleLogout() {
     Storage.clearUser();
+    Storage.clearQuizProgress();
     AppState.user = null;
     showToast('Logged out successfully', 'success');
     Router.navigate('login');
@@ -1064,6 +1082,9 @@ async function confirmSubmit() {
     try {
         await API.submitQuiz(AppState.user.matricNumber, subject, finalScore, total);
 
+        // Clear local persistence on successful submission
+        Storage.clearQuizProgress();
+
         Router.navigate('result', {
             resultData: { score: finalScore, total, subject }
         });
@@ -1219,12 +1240,24 @@ async function init() {
         try {
             AppState.quizzes = await API.getQuizzes();
 
-            // Check for unfinished sessions first
-            if (!checkResumeSession(savedUser)) {
-                const lastPage = Storage.getPage();
-                // Safety: If last page was 'quiz', go home instead to avoid loading trap
-                Router.navigate(lastPage && lastPage !== 'login' && lastPage !== 'quiz' ? lastPage : 'home');
+            // 1. Check for LOCAL instant recovery FIRST (Foolproof refresh fix)
+            const localProgress = Storage.getQuizProgress();
+            if (localProgress && localProgress.subject) {
+                console.log("Restoring local progress for:", localProgress.subject);
+                restoreSession(localProgress.subject, localProgress);
+                return; // Exit init early, session restored
             }
+
+            // 2. Fallback: Check for server-side unfinished sessions
+            if (checkResumeSession(savedUser)) {
+                return; // Exit init early, session restored
+            }
+
+            // 3. Normal navigation if no sessions to resume
+            const lastPage = Storage.getPage();
+            // Safety: If last page was 'quiz' but no progress found, go home
+            Router.navigate(lastPage && lastPage !== 'login' && lastPage !== 'quiz' ? lastPage : 'home');
+
         } catch (err) {
             showToast('Session expired or server error. Please login again.', 'error');
             Storage.clearUser();
