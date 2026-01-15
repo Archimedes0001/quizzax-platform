@@ -157,12 +157,19 @@ app.get('/api/leaderboard', asyncHandler(async (req, res, next) => {
     res.json(studentList);
 }));
 
-// 6. Get Performance (All Students)
+// 6. Get Performance (Only Active Users)
 app.get('/api/performance', asyncHandler(async (req, res, next) => {
     const users = await User.find({}).sort({ matricNumber: 1 });
 
+    // Filter to only users who have logged in at least once
+    // (updatedAt will differ from createdAt after first login)
+    const activeUsers = users.filter(user =>
+        user.updatedAt.getTime() !== user.createdAt.getTime() ||
+        user.history.length > 0
+    );
+
     // Transform into performance report
-    const report = users.map(user => {
+    const report = activeUsers.map(user => {
         // Group by subject
         const subjectMap = {};
 
