@@ -29,8 +29,17 @@
 3.  **Seed Database**:
     *   Ensure server is running (`npm run start:dev`).
     *   Execute: `curl -X POST http://localhost:5000/api/seed`
-4.  **Production Build**:
-    *   Render.com automatically runs `npm install` and `npm start` upon push.
+4.  **Render.com Deployment (Cloud)**:
+    *   **Create Account**: Sign up at [dashboard.render.com](https://dashboard.render.com).
+    *   **New Web Service**: Click "New +" -> "Web Service".
+    *   **Connect Repo**: Select "Build and deploy from a Git repository" and choose `quiz_app`.
+    *   **Settings**:
+        *   **Build Command**: `npm install`
+        *   **Start Command**: `npm start`
+    *   **Environment Variables**:
+        *   Add `MONGO_URI` (Value: `mongodb+srv://...`)
+        *   Add `NODE_ENV` (Value: `production`)
+    *   **Deploy**: Click "Create Web Service".
 
 ### Troubleshooting
 *   **Error**: `EADDRINUSE: address already in use`
