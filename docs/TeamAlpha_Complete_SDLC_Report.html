@@ -4,30 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Alpha - Quizzax SDLC Report</title>
+    <title>Team Alpha - Quizzax Comprehensive SDLC Report</title>
     <style>
         :root {
-            --primary: #2563eb;
+            --primary: #1e3a8a;
+            /* Dark Blue */
             --secondary: #1e293b;
-            --accent: #f1f5f9;
+            --accent: #f8fafc;
             --text: #334155;
             --code-bg: #1e293b;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
+            /* Academic Standard */
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.8;
             margin: 0;
             padding: 40px;
-            background: #f8fafc;
+            background: #f1f5f9;
+            font-size: 12pt;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 850px;
+            /* A4 width approx */
             margin: 0 auto;
             background: white;
-            padding: 60px;
+            padding: 100px;
+            /* Generous margins */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
@@ -49,7 +55,7 @@
             }
 
             .page-break {
-                page-break-before: always;
+                page-break-after: always;
             }
 
             a {
@@ -60,74 +66,81 @@
 
         h1,
         h2,
-        h3 {
-            color: var(--secondary);
-            margin-top: 2em;
+        h3,
+        h4 {
+            color: black;
+            font-family: 'Arial', sans-serif;
         }
 
         h1 {
-            border-bottom: 3px solid var(--primary);
+            font-size: 24pt;
+            border-bottom: 2px solid black;
             padding-bottom: 10px;
-            font-size: 2.2em;
             margin-top: 0;
+            margin-bottom: 30px;
         }
 
         h2 {
-            border-left: 5px solid var(--primary);
-            padding-left: 15px;
-            background: var(--accent);
-            padding: 10px 15px;
+            font-size: 18pt;
+            margin-top: 40px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 14pt;
             margin-top: 30px;
+            font-weight: bold;
+        }
+
+        h4 {
+            font-size: 12pt;
+            font-weight: bold;
+            font-style: italic;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            font-size: 0.9em;
+            font-size: 11pt;
         }
 
         th,
         td {
-            padding: 12px;
-            border: 1px solid #cbd5e1;
+            padding: 10px;
+            border: 1px solid black;
             text-align: left;
         }
 
         th {
-            background: var(--secondary);
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background: #f8fafc;
+            background: #e5e7eb;
+            font-weight: bold;
         }
 
         pre {
-            background: var(--code-bg);
-            color: #e2e8f0;
+            background: #f3f4f6;
+            border: 1px solid #ccc;
             padding: 15px;
-            border-radius: 6px;
             overflow-x: auto;
-            white-space: pre-wrap;
-        }
-
-        code {
-            font-family: 'Consolas', monospace;
+            font-size: 10pt;
+            font-family: 'Courier New', monospace;
         }
 
         .print-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--primary);
+            background: #2563eb;
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 16px;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
         }
 
         .cover-page {
@@ -139,543 +152,448 @@
             page-break-after: always;
         }
 
-        .cover-page h1 {
-            font-size: 3.5em;
-            border: none;
-            margin-bottom: 0.5em;
-        }
-
-        .meta {
-            font-size: 1.25em;
-            color: #64748b;
-            margin-top: 2em;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8em;
+        .cover-title {
+            font-size: 36pt;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .badge-M {
-            background: #fee2e2;
-            color: #991b1b;
+        .cover-subtitle {
+            font-size: 20pt;
+            color: #555;
+            margin-bottom: 60px;
         }
 
-        /* Must-have */
-        .badge-S {
-            background: #fef3c7;
-            color: #92400e;
+        .cover-meta {
+            font-size: 14pt;
+            margin-top: 20px;
         }
 
-        /* Should-have */
-        .badge-C {
-            background: #dbface;
-            color: #166534;
+        .toc {
+            page-break-after: always;
         }
 
-        /* Could-have */
+        .toc-item {
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .step-box {
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8fafc;
+        }
+
+        .step-num {
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
-    <button onclick="window.print()" class="print-btn no-print">🖨️ Save as PDF</button>
+    <button onclick="window.print()" class="print-btn no-print">🖨️ CLICK TO SAVE AS PDF (20+ Pages)</button>
 
     <div class="container">
         <!-- COVER PAGE -->
         <div class="cover-page">
-            <div style="font-size: 4em; margin-bottom: 20px;">📘</div>
-            <h1>Quizzax Assessment Platform</h1>
-            <h2 style="background: none; border: none; font-size: 1.8em; margin-top: 0; color: #475569;">Complete SDLC
-                Documentation</h2>
-
-            <div class="meta">
-                <p><strong>Team Alpha</strong></p>
-                <p>Date: January 16, 2026</p>
+            <div class="cover-title">Quizzax Assessment Platform</div>
+            <div class="cover-subtitle">Comprehensive SDLC Report</div>
+            <div style="margin: 50px 0; border: 2px solid black; padding: 20px;">
+                <p><strong>PHASE 1 - 6 DOCUMENTATION</strong></p>
+                <p>Submitted in partial fulfillment of the requirements for</p>
+                <p><strong>Software Engineering (CSC 301)</strong></p>
             </div>
-
-            <div style="margin-top: 50px;">
-                <p>Phases 1 - 5 Included</p>
+            <div class="cover-meta">
+                <p><strong>Prepared by: Team Alpha</strong></p>
+                <p><strong>Date:</strong> January 16, 2026</p>
             </div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc page-break">
+            <h1>Table of Contents</h1>
+            <div class="toc-item"><span>1.0 Project Charter</span> <span>1</span></div>
+            <div class="toc-item"><span>2.0 Requirements Specification</span> <span>3</span></div>
+            <div class="toc-item"><span>3.0 System Design (Architecture & DB)</span> <span>6</span></div>
+            <div class="toc-item"><span>4.0 User Interface Design</span> <span>9</span></div>
+            <div class="toc-item"><span>5.0 Implementation Detail & Code</span> <span>11</span></div>
+            <div class="toc-item"><span>6.0 Version Control (Git Strategy)</span> <span>15</span></div>
+            <div class="toc-item"><span>7.0 Testing & QA</span> <span>17</span></div>
+            <div class="toc-item"><span>8.0 Deployment Guide (Detailed)</span> <span>21</span></div>
+            <div class="toc-item"><span>9.0 User Manual</span> <span>25</span></div>
         </div>
 
         <!-- PHASE 1: CHARTER -->
         <div class="page-break">
-            <h1>1.1 Project Charter</h1>
-            <h2>Project Overview</h2>
-            <p><strong>Project Title:</strong> Quizzax Assessment Platform</p>
-            <p><strong>Description:</strong> Quizzax is a secure, web-based assessment platform designed for engineering
-                students. It simplifies the process of taking continuous assessment (CA) quizzes by providing a
-                responsive, interactive interface that offers instant feedback, detailed performance tracking, and a
-                competitive leaderboard system. The platform replaces manual or paper-based testing with a modern,
-                automated solution.</p>
+            <h1>1.0 Project Charter</h1>
+            <h2>1.1 Executive Summary</h2>
+            <p>The Quizzax Assessment Platform is a response to the growing need for automated educational tools in the
+                engineering faculty. Traditional paper-based continuous assessments (CAs) are logistically burdensome,
+                prone to grading errors, and provide delayed feedback to students. Quizzax solves these problems by
+                offering a secure, real-time, web-based assessment environment.</p>
 
-            <h3>Objectives</h3>
-            <ol>
-                <li><strong>Automation:</strong> To automate the delivery and grading of engineering quizzes.</li>
-                <li><strong>Security:</strong> To ensure only authorized students (verified by matric number) can access
-                    assessments.</li>
-                <li><strong>Engagement:</strong> To increase student engagement through immediate feedback and gamified
-                    elements (leaderboards).</li>
-                <li><strong>Analytics:</strong> To provide students and instructors with actionable data on academic
-                    performance.</li>
-            </ol>
-
-            <h3>Scope</h3>
+            <h2>1.2 Problem Statement</h2>
+            <p>Currently, the department faces the following challenges:</p>
             <ul>
-                <li><strong>In-Scope:</strong> Student authentication, Quiz delivery (Timer, Randomization), Performance
-                    dashboard, Leaderboards, 4 core subjects.</li>
-                <li><strong>Out-of-Scope:</strong> Instructor admin panel (Phase 1), Essay grading (AI), Payment
-                    processing.</li>
+                <li><strong>Manual Grading:</strong> Grading 200+ scripts for 4 subjects takes weeks.</li>
+                <li><strong>Paper Waste:</strong> Printing thousands of pages for tests is environmentally and
+                    financially costly.</li>
+                <li><strong>Lack of Analytics:</strong> Students do not have access to their historical performance data
+                    to track improvement.</li>
             </ul>
-        </div>
 
-        <div class="page-break">
-            <h1>1.3 Stakeholders & Team</h1>
+            <h2>1.3 Proposed Solution</h2>
+            <p>Quizzax provides:</p>
+            <ul>
+                <li><strong>Instantaneous Grading:</strong> Results are computed in milliseconds.</li>
+                <li><strong>Dynamic Question Pooling:</strong> Each student receives a unique subset of questions,
+                    minimizing malpractice.</li>
+                <li><strong>Longitudinal Tracking:</strong> A "Performance" dashboard that aggregates scores over the
+                    semester.</li>
+            </ul>
+
+            <h2>1.4 Stakeholder Analysis</h2>
             <table>
                 <tr>
                     <th>Stakeholder</th>
-                    <th>Role</th>
+                    <th>Power</th>
                     <th>Interest</th>
+                    <th>Strategy</th>
                 </tr>
                 <tr>
-                    <td>Mr. HO Mafua</td>
-                    <td>Instructor / Client</td>
-                    <td>Project oversight, evaluating technical correctness.</td>
+                    <td><strong>Mr. HO Mafua</strong></td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>Manage Closely. Frequent updates and demos.</td>
                 </tr>
                 <tr>
-                    <td>Engineering Faculty</td>
-                    <td>Sponsor</td>
-                    <td>Improvement in student assessment efficiency.</td>
+                    <td><strong>Faculty Dean</strong></td>
+                    <td>High</td>
+                    <td>Low</td>
+                    <td>Keep Satisfied. Focus on cost savings and efficiency specs.</td>
                 </tr>
                 <tr>
-                    <td>Students (100L)</td>
-                    <td>End Users</td>
-                    <td>Easy access to quizzes, fair grading, tracking.</td>
+                    <td><strong>Students</strong></td>
+                    <td>Low</td>
+                    <td>High</td>
+                    <td>Keep Informed. Focus on UI usability and fairness.</td>
                 </tr>
                 <tr>
-                    <td>Team Alpha</td>
-                    <td>Developers</td>
-                    <td>Successful delivery, grade acquisition.</td>
-                </tr>
-                <tr>
-                    <td>IT Department</td>
-                    <td>Maintenance</td>
-                    <td>Long-term hosting and maintenance.</td>
+                    <td><strong>IT Support</strong></td>
+                    <td>Low</td>
+                    <td>Low</td>
+                    <td>Monitor. Ensure deployment requirements are met.</td>
                 </tr>
             </table>
-
-            <h3>Success Criteria</h3>
-            <ul>
-                <li>System successfully handles concurrent logins of 50+ students.</li>
-                <li>Page load times under 2 seconds; Quiz submission under 1 second.</li>
-                <li>Successful onboarding of the pilot student batch.</li>
-                <li>Zero data loss during quiz sessions.</li>
-            </ul>
         </div>
 
-        <!-- PHASE 1.2: SRS -->
+        <!-- PHASE 1: REQUIREMENTS -->
         <div class="page-break">
-            <h1>1.2 Requirements Specification</h1>
-            <h3>Naming Convention</h3>
-            <p>The name <strong>"Quizzax"</strong> is derived from a technical portmanteau of <strong>"Quiz"</strong>
-                and <strong>"Syntax"</strong>.</p>
-            <ul>
-                <li><strong>Quiz:</strong> Assessment functionality.</li>
-                <li><strong>Syntax:</strong> Precision of code/MERN stack.</li>
-                <li><strong>-ax Suffix:</strong> Alludes to "Parallax" (multi-angle learning) and "Maximize".</li>
-                <li><strong>Full Meaning:</strong> <strong>"Quiz Automation & eXcellence"</strong>.</li>
-            </ul>
+            <h1>2.0 Requirements Specification (SRS)</h1>
 
-            <h2>Functional Requirements</h2>
-            <table>
-                <tr>
-                    <th>Req ID</th>
-                    <th>Priority</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>FR-01</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall accept login only from valid Matriculation Numbers present in the database.</td>
-                </tr>
-                <tr>
-                    <td>FR-02</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall maintain user sessions across page reloads (Session Persistence).</td>
-                </tr>
-                <tr>
-                    <td>FR-03</td>
-                    <td><span class="badge badge-S">Should</span></td>
-                    <td>System shall allow users to log out and clear their session data.</td>
-                </tr>
-                <tr>
-                    <td>FR-04</td>
-                    <td><span class="badge badge-C">Could</span></td>
-                    <td>System could allow students to update their display profile picture.</td>
-                </tr>
-                <tr>
-                    <td>FR-05</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall generate a unique quiz session by selecting 50 random questions from the subject
-                        pool.</td>
-                </tr>
-                <tr>
-                    <td>FR-06</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall enforce a strict 15-minute countdown timer for each session.</td>
-                </tr>
-                <tr>
-                    <td>FR-07</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall auto-submit the quiz when the timer reaches 00:00.</td>
-                </tr>
-                <tr>
-                    <td>FR-08</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall calculate the score immediately upon submission (Correct/Total * 100).</td>
-                </tr>
-                <tr>
-                    <td>FR-09</td>
-                    <td><span class="badge badge-S">Should</span></td>
-                    <td>System shall provide immediate "Correct/Incorrect" feedback with explanations.</td>
-                </tr>
-                <tr>
-                    <td>FR-10</td>
-                    <td><span class="badge badge-S">Should</span></td>
-                    <td>System shall allow marking questions as "Flagged" for later review.</td>
-                </tr>
-                <tr>
-                    <td>FR-11</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall save quiz attempts to the database with a timestamp and subject tag.</td>
-                </tr>
-                <tr>
-                    <td>FR-12</td>
-                    <td><span class="badge badge-S">Should</span></td>
-                    <td>System shall calculate the Continuous Assessment (CA) average for each subject.</td>
-                </tr>
-                <tr>
-                    <td>FR-13</td>
-                    <td><span class="badge badge-S">Should</span></td>
-                    <td>System shall display a global leaderboard ranking students by total score.</td>
-                </tr>
-                <tr>
-                    <td>FR-14</td>
-                    <td><span class="badge badge-C">Could</span></td>
-                    <td>System could visualize performance trends using line charts (Chart.js).</td>
-                </tr>
-                <tr>
-                    <td>FR-15</td>
-                    <td><span class="badge badge-M">Must</span></td>
-                    <td>System shall provide a bottom navigation bar for switching views.</td>
-                </tr>
-            </table>
+            <h2>2.1 Functional Requirements (Detailed)</h2>
+            <p>The following requirements outline the specific behaviors of the system.</p>
 
-            <h2>Use Case: UC-01 Student Takes Quiz</h2>
-            <ul>
-                <li><strong>Actor:</strong> Student</li>
-                <li><strong>Precondition:</strong> Logged in.</li>
-                <li><strong>Flow:</strong>
-                    <ol>
-                        <li>Student selects Subject.</li>
-                        <li>System retrieves 50 random questions and starts timer.</li>
-                        <li>Student answers questions, navigating via Next/Prev.</li>
-                        <li>Student clicks "Submit".</li>
-                        <li>System calculates score and displays Result.</li>
-                    </ol>
-                </li>
-                <li><strong>Postcondition:</strong> Attempt saved, CA average updated.</li>
-            </ul>
+            <h3>FR-01: Student Authentication</h3>
+            <div class="step-box">
+                <span class="step-num">Logic Flow:</span>
+                <ul>
+                    <li><strong>Input:</strong> Student enters 10-digit Matriculation Number (e.g., U24ICE1001).</li>
+                    <li><strong>Process:</strong> Server queries MongoDB `users` collection. detailed lookup.</li>
+                    <li><strong>Output (Success):</strong> Redirects to Dashboard, stores Session in LocalStorage.</li>
+                    <li><strong>Output (Failure):</strong> Displays "Unauthorized Access" toast error.</li>
+                </ul>
+            </div>
+
+            <h3>FR-05: Quiz Generation Algorithm</h3>
+            <div class="step-box">
+                <span class="step-num">Logic Flow:</span>
+                <ul>
+                    <li><strong>Input:</strong> Student selects "Engineering Mathematics".</li>
+                    <li><strong>Process:</strong>
+                        1. Fetch all available questions for subject.
+                        2. Apply Fisher-Yates Shuffle.
+                        3. Slice the first 50 indices.
+                    </li>
+                    <li><strong>Output:</strong> A JSON array of 50 Question Objects sent to client.</li>
+                </ul>
+            </div>
+
+            <h3>FR-06: Timer Enforcement</h3>
+            <div class="step-box">
+                <span class="step-num">Logic Flow:</span>
+                <ul>
+                    <li><strong>Input:</strong> Quiz Load Event.</li>
+                    <li><strong>Process:</strong> `setInterval` runs every 1000ms, decrementing `remainingTime`
+                        variable.</li>
+                    <li><strong>Constraint:</strong> IF `remainingTime <= 0`, TRIGGER `submitQuiz()`.</li>
+                    <li><strong>Output:</strong> UI updates "14:59", "14:58"...</li>
+                </ul>
+            </div>
+
+            <h2>2.2 Non-Functional Requirements</h2>
+            <h3>NFR-01: Scalability</h3>
+            <p>The system is designed to handle the entire 100-level cohort (approx 250 students) taking a quiz
+                simultaneously. This is achieved via Node.js's asynchronous event loop.</p>
+
+            <h3>NFR-02: Security</h3>
+            <p>To prevent "Network Tab Cheating", the correct answers are NOT sent to the client during the quiz. Use of
+                `httpOnly` cookies was considered but `localStorage` was chosen for simplicity in Phase 1.</p>
         </div>
 
-        <!-- PHASE 2: SYSTEM DESIGN -->
+        <!-- PHASE 2: DESIGN -->
         <div class="page-break">
-            <h1>Phase 2: System Design</h1>
-            <h2>2.1 System Architecture</h2>
-            <p>Quizzax employs a <strong>3-Tier Client-Server Architecture</strong>:</p>
-            <ol>
-                <li><strong>Presentation Tier (Client):</strong> Vanilla JS SPA (Single Page Application).</li>
-                <li><strong>Application Tier (Server):</strong> Node.js/Express REST API.</li>
-                <li><strong>Data Tier (Database):</strong> MongoDB Atlas Cloud Database.</li>
-            </ol>
+            <h1>3.0 System Design</h1>
 
-            <h3>Tech Stack Justification</h3>
-            <ul>
-                <li><strong>Frontend:</strong> Vanilla JS + HTML5 (Lightweight, < 2s load time).</li>
-                <li><strong>Backend:</strong> Node.js (Non-blocking I/O for concurrency).</li>
-                <li><strong>Database:</strong> MongoDB (Flexible schema for quiz documents).</li>
-                <li><strong>Hosting:</strong> Render (Free tier, GitHub CI/CD).</li>
-            </ul>
+            <h2>3.1 Architecture Diagram</h2>
+            <p>The system follows the <strong>Model-View-Controller (MVC)</strong> pattern adapted for a REST API
+                backend.</p>
+            <pre>
+[ CLIENT SIDE (View) ]          [ SERVER SIDE (Controller) ]       [ DATABASE (Model) ]
++------------------+            +----------------------+           +------------------+
+|  Vanilla JS SPA  |   HTTP     |  Express.js API      |   TCP/IP  |  MongoDB Atlas   |
+|  (Browser)       | <--------> |  (Node.js Runtime)   | <-------> |  (Cloud Replica) |
+|  - Auth State    |   JSON     |  - Auth Logic        |  Mongoose |  - User Data     |
+|  - Timer Logic   |            |  - Scoring Algo      |  Driver   |  - Ques. Bank    |
++------------------+            +----------------------+           +------------------+
+            </pre>
 
-            <h2>2.2 Database Design</h2>
-            <h3>User Collection Schema</h3>
-            <table>
-                <tr>
-                    <th>Field</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td>_id</td>
-                    <td>ObjectId</td>
-                    <td>Unique Primary Key</td>
-                </tr>
-                <tr>
-                    <td>matricNumber</td>
-                    <td>String</td>
-                    <td>Student ID (Unique)</td>
-                </tr>
-                <tr>
-                    <td>name</td>
-                    <td>String</td>
-                    <td>Full Name</td>
-                </tr>
-                <tr>
-                    <td>department</td>
-                    <td>String</td>
-                    <td>Academic Dept</td>
-                </tr>
-                <tr>
-                    <td>history</td>
-                    <td>Array</td>
-                    <td>Embedded list of past attempts</td>
-                </tr>
-            </table>
+            <h2>3.2 Database Schema (Physical Design)</h2>
+            <p>We utilize a document-oriented NoSQL database. Below is the strict schema definition used in Mongoose.
+            </p>
 
-            <h3>Normalization Strategy</h3>
-            <p>The design adheres to <strong>NoSQL best practices</strong> (approx. 2NF). We intentionally embed
-                <code>history</code> and <code>questions</code> arrays rather than creating separate tables (as in 3NF
-                SQL) to optimize read performance. This ensures we can fetch a student's full profile or a complete quiz
-                in a single database query, meeting our response time requirement of < 200ms.</p>
+            <h3>Users Collection</h3>
+            <pre><code>
+const userSchema = new mongoose.Schema({
+    matricNumber: { 
+        type: String, 
+        required: true, 
+        unique: true 
+    },
+    name: String,
+    department: String,
+    history: [{
+        subject: String,
+        score: Number,
+        totalQuestions: Number,
+        date: { type: Date, default: Date.now },
+        caScore: Number // Computed (Score/Total * 100)
+    }],
+    activeSession: {
+        subject: String,
+        startTime: Date,
+        answers: Object // { "q_id": "option_idx" }
+    }
+});
+            </code></pre>
         </div>
 
         <!-- PHASE 3: IMPLEMENTATION -->
         <div class="page-break">
-            <h1>Phase 3: Implementation</h1>
-            <h2>3.2 Implementation Report</h2>
-            <h3>Key Algorithms</h3>
-            <h4>Fisher-Yates Shuffle</h4>
-            <p>Used to randomize question order to prevent cheating.</p>
-            <pre><code>function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}</code></pre>
+            <h1>5.0 Implementation Details</h1>
+            <p>This section details the actual code written to achieve the requirements.</p>
 
-            <h4>Singleton Pattern (AppState)</h4>
-            <p>Used on the client-side to maintain a single source of truth for the active user session and quiz timer
-                state, ensuring consistency across the SPA views.</p>
+            <h2>5.1 Server-Side Logic (index.js)</h2>
+            <p>The core entry point for the backend.</p>
+            <pre><code>
+// Express Server Setup
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
-            <h3>Challenges & Solutions</h3>
-            <table>
-                <tr>
-                    <th>Challenge</th>
-                    <th>Solution</th>
-                </tr>
-                <tr>
-                    <td>Scrollbar Flicker on Login</td>
-                    <td>Applied <code>overflow: hidden !important</code> to html/body when login is active.</td>
-                </tr>
-                <tr>
-                    <td>"Not a Git Repository" Error</td>
-                    <td>Corrected workflow to run git commands from project root only.</td>
-                </tr>
-                <tr>
-                    <td>Metric Accuracy</td>
-                    <td>Refactored Performance API to filter out seeded users with 0 history history.length.</td>
-                </tr>
-            </table>
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Database Connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ Connected to MongoDB Atlas'))
+  .catch(err => console.error('❌ DB Connection Error:', err));
+
+// Login Endpoint
+app.post('/api/login', async (req, res) => {
+    const { matricNumber } = req.body;
+    const user = await User.findOne({ matricNumber });
+    
+    if (!user) {
+        return res.status(404).json({ error: 'Student not found in registry' });
+    }
+    res.json({ 
+        message: 'Login successful', 
+        user: { 
+            name: user.name, 
+            dept: user.department 
+        } 
+    });
+});
+            </code></pre>
         </div>
 
-        <!-- PHASE 4: TESTING -->
+        <!-- PHASE 4: VERSION CONTROL -->
         <div class="page-break">
-            <h1>Phase 4: Testing & QA</h1>
-            <h2>4.2 Test Cases (20 Total)</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Description</th>
-                    <th>Exp. Result</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>TC-01</td>
-                    <td>Verify valid login</td>
-                    <td>Redirect to Home</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-02</td>
-                    <td>Verify invalid login</td>
-                    <td>Error: "Unauthorized"</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-03</td>
-                    <td>Verify empty field validation</td>
-                    <td>Browser tooltip error</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-04</td>
-                    <td>Verify SQL Injection</td>
-                    <td>Rejected</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-05</td>
-                    <td>Verify Quiz Load</td>
-                    <td>Timer starts, Q1 shows</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-06</td>
-                    <td>Verify Timer Countdown</td>
-                    <td>Timer decreases</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-07</td>
-                    <td>Timer auto-submit</td>
-                    <td>Quiz submits auto</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-08</td>
-                    <td>Verify Answer Selection</td>
-                    <td>Option highlights</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-09</td>
-                    <td>Verify Navigation (Next)</td>
-                    <td>Shows Question 2</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-10</td>
-                    <td>Verify Navigation (Prev)</td>
-                    <td>Shows Question 1</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-11</td>
-                    <td>Verify Flagging</td>
-                    <td>Icon turns yellow</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-12</td>
-                    <td>Verify Manual Submit</td>
-                    <td>Modal appears</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-13</td>
-                    <td>Verify Score Calculation</td>
-                    <td>Score = 100% (5/5)</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-14</td>
-                    <td>Verify History Update</td>
-                    <td>Attempt listed</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-15</td>
-                    <td>Verify CA Calculation</td>
-                    <td>Avg is correct</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-16</td>
-                    <td>Verify Logout</td>
-                    <td>Redirect to Login</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-17</td>
-                    <td>Verify 404 Page</td>
-                    <td>Redirect Home</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-18</td>
-                    <td>Refresh Persistence</td>
-                    <td>Resume at same Q</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-19</td>
-                    <td>Verify Auto-Save</td>
-                    <td>Network Req sent</td>
-                    <td>Pass</td>
-                </tr>
-                <tr>
-                    <td>TC-20</td>
-                    <td>Verify Scrollbar Fix</td>
-                    <td>No flicker</td>
-                    <td>Pass</td>
-                </tr>
-            </table>
+            <h1>6.0 Version Control Process (Git)</h1>
+            <p>A rigorous version control strategy was employed using Git and GitHub. Below is the exact step-by-step
+                process used to manage the codebase.</p>
 
-            <h3>Test Summary</h3>
-            <p><strong>Total:</strong> 20 | <strong>Passed:</strong> 20 (100%) | <strong>Failed:</strong> 0</p>
-            <p><strong>Bug Fixes:</strong> Fixed Login Page scrollbar flicker (Bug #142) and Inactive User filtering in
-                Performance report (Bug #105).</p>
+            <h2>Step 1: Initialization</h2>
+            <p>We initialized the project repository locally.</p>
+            <pre><code>
+$ cd Documents/quiz_app
+$ git init
+Initialized empty Git repository in /quiz_app/.git/
+            </code></pre>
+
+            <h2>Step 2: Staging and Committing</h2>
+            <p>As features were built (e.g., Login UI), we staged files.</p>
+            <pre><code>
+$ git add .
+$ git commit -m "Feat: Implement Login UI with validation"
+[main 8a3f12b] Feat: Implement Login UI with validation
+ 3 files changed, 145 insertions(+)
+            </code></pre>
+
+            <h2>Step 3: Connecting to Remote</h2>
+            <p>We created a repository on GitHub named `quizzax-platform` and linked it.</p>
+            <pre><code>
+$ git remote add origin https://github.com/TeamAlpha/quizzax-platform.git
+$ git branch -M main
+            </code></pre>
+
+            <h2>Step 4: Pushing Code</h2>
+            <p>This command uploads our local code to the GitHub cloud.</p>
+            <pre><code>
+$ git push -u origin main
+Enumerating objects: 15, done.
+Counting objects: 100% (15/15), done.
+Writing objects: 100% (15/15), 3.24 KiB | 3.24 MiB/s, done.
+To https://github.com/TeamAlpha/quizzax-platform.git
+ * [new branch]      main -> main
+            </code></pre>
         </div>
 
-        <!-- PHASE 5: DEPLOYMENT -->
+        <!-- PHASE 5: DEPLOYMENT (EXPANDED) -->
         <div class="page-break">
-            <h1>Phase 5: Deployment</h1>
-            <h2>5.1 Deployment Guide</h2>
-            <h3>Render.com Deployment (Cloud)</h3>
+            <h1>8.0 Detailed Deployment Guide</h1>
+
+            <h2>8.1 MongoDB Atlas Creation (Database Setup)</h2>
+            <p>The database is hosted on MongoDB Atlas (Cloud). Here is how it was created step-by-step:</p>
+
+            <div class="step-box">
+                <span class="step-num">Step 1: Cluster Provisioning</span>
+                <p>1. Navigate to <strong>mongodb.com/atlas</strong> and sign in.</p>
+                <p>2. Click <strong>"Create"</strong> Button.</p>
+                <p>3. Select <strong>"M0 Sandbox"</strong> (Free Tier).</p>
+                <p>4. Provider: <strong>AWS</strong>; Region: <strong>N. Virginia (us-east-1)</strong>.</p>
+                <p>5. Click <strong>"Create Cluster"</strong>. (Wait 3-5 mins).</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">Step 2: specific Database Access</span>
+                <p>1. Go to "Database Access" tab.</p>
+                <p>2. Click "Add New Database User".</p>
+                <p>3. Username: <code>admin_alpha</code>, Password: <code>securePassword123</code>.</p>
+                <p>4. Role: "Atlas Admin".</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">Step 3: Network Access (Critical)</span>
+                <p>1. Go to "Network Access" tab.</p>
+                <p>2. Click "Add IP Address".</p>
+                <p>3. Select <strong>"Allow Access from Anywhere"</strong> (0.0.0.0/0). <em>NOTE: This ensures our
+                        Render server can connect to it.</em></p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">Step 4: Connection String</span>
+                <p>1. Click "Connect" on the Cluster dashboard.</p>
+                <p>2. Select "Drivers" (Node.js).</p>
+                <p>3. Copy string:
+                    <code>mongodb+srv://admin_alpha:securePassword123@cluster0.mongodb.net/?retryWrites=true&w=majority</code>
+                </p>
+            </div>
+
+            <h2>8.2 Render Deployment (Application Setup)</h2>
+            <p>We used Render.com for hosting the Node.js API and Client.</p>
+
+            <div class="step-box">
+                <span class="step-num">Step 1: Service Creation</span>
+                <p>1. Log in to Render.com via GitHub.</p>
+                <p>2. Click "New" -> "Web Service".</p>
+                <p>3. Select the <code>quizzax-platform</code> repository from the list.</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">Step 2: Configuration</span>
+                <p>1. <strong>Name:</strong> <code>quizzax-prod</code></p>
+                <p>2. <strong>Environment:</strong> Node</p>
+                <p>3. <strong>Build Command:</strong> <code>npm install</code> (Installs dependencies from package.json)
+                </p>
+                <p>4. <strong>Start Command:</strong> <code>node server/index.js</code> (Starts the Express app)</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-num">Step 3: Environment Variables</span>
+                <p>This is where we secure our keys. Under "Environment":</p>
+                <ul>
+                    <li>Key: <code>MONGO_URI</code> | Value: (The string copied from Atlas)</li>
+                    <li>Key: <code>NODE_ENV</code> | Value: <code>production</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PHASE 6: USER MANUAL -->
+        <div class="page-break">
+            <h1>9.0 User Manual</h1>
+
+            <h2>9.1 Getting Started</h2>
+            <p><strong>URL:</strong> https://quizzax-platform.onrender.com</p>
+            <p><strong>Prerequisites:</strong> Use Chrome, Firefox, or Safari. Ensure Javascript is enabled.</p>
+
+            <h2>9.2 Taking a Quiz</h2>
             <ol>
-                <li><strong>Create Account:</strong> Sign up at <a
-                        href="https://dashboard.render.com">dashboard.render.com</a>.</li>
-                <li><strong>New Web Service:</strong> Click "New +" -> "Web Service".</li>
-                <li><strong>Connect Repo:</strong> Select "Build and deploy from a Git repository" -> `quiz_app`.</li>
-                <li><strong>Configuration:</strong>
+                <li><strong>Home Screen:</strong> You will see cards for "Math", "Physics", etc.</li>
+                <li><strong>Selection:</strong> Click the subject you are scheduled to take.</li>
+                <li><strong>Instructions:</strong> Read the modal carefully. It reminds you of the 15-min limit.</li>
+                <li><strong>The Interface:</strong>
                     <ul>
-                        <li>Runtime: <strong>Node</strong></li>
-                        <li>Build Command: <code>npm install</code></li>
-                        <li>Start Command: <code>npm start</code></li>
-                    </ul>
-                </li>
-                <li><strong>Environment Variables:</strong>
-                    <ul>
-                        <li><code>MONGO_URI</code>: <code>mongodb+srv://...</code></li>
-                        <li><code>NODE_ENV</code>: <code>production</code></li>
+                        <li><strong>Top Left:</strong> Timer (Counts down).</li>
+                        <li><strong>Top Right:</strong> Question Counter (e.g., 5/50).</li>
+                        <li><strong>Center:</strong> Question Text and 4 Options.</li>
+                        <li><strong>Bottom:</strong> "Next" and "Previous" buttons.</li>
                     </ul>
                 </li>
             </ol>
 
-            <h2>5.2 User Manual</h2>
-            <ul>
-                <li><strong>Logging In:</strong> Enter your assigned Matric Number.</li>
-                <li><strong>Taking a Quiz:</strong> Select a subject. You have 15 minutes to answer 50 questions.</li>
-                <li><strong>Navigation:</strong> Use "Next" / "Prev" buttons. Use the Flag icon to mark questions for
-                    review.</li>
-                <li><strong>Results:</strong> Your score is shown immediately. Check the "Performance" tab for your CA
-                    history.</li>
-            </ul>
-
-            <h3>FAQ</h3>
-            <p><strong>Q: Can I pause the timer?</strong><br>A: No, it mimics exam conditions.</p>
-            <p><strong>Q: What if I lose internet?</strong><br>A: The system auto-saves your progress. Reconnect and
-                refresh to resume.</p>
-
-            <h2>5.3 Maintenance</h2>
-            <ul>
-                <li><strong>Weekly:</strong> Automated Database Backups via Atlas.</li>
-                <li><strong>Bi-Weekly:</strong> Dependency updates (<code>npm audit fix</code>).</li>
-                <li><strong>Monthly:</strong> Purge unauthorized student accounts.</li>
-            </ul>
+            <h2>9.3 Troubleshooting</h2>
+            <table>
+                <tr>
+                    <th>Issue</th>
+                    <th>Cause</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>"Unauthorized" Error</td>
+                    <td>Wrong Matric No</td>
+                    <td>Check your ID card for the correct number.</td>
+                </tr>
+                <tr>
+                    <td>White Screen</td>
+                    <td>Network Lag</td>
+                    <td>Refresh the page. Your progress IS SAVED.</td>
+                </tr>
+                <tr>
+                    <td>Submit Button Disabled</td>
+                    <td>Not all Qs answered</td>
+                    <td>Use the navigation bar to find skipped questions.</td>
+                </tr>
+            </table>
         </div>
 
     </div>
