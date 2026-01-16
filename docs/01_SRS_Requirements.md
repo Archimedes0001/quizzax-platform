@@ -20,7 +20,14 @@ The Quizzax Assessment Platform is a comprehensive online assessment system that
 - Generates detailed performance analytics
 - Supports multiple engineering disciplines
 
-### 1.3 Definitions, Acronyms, and Abbreviations
+### 1.3 Naming Convention
+The name **"Quizzax"** is derived from a technical portmanteau of **"Quiz"** and **"Syntax"**.
+- **Quiz**: Represents the core assessment functionality.
+- **Syntax**: Represents the code-based, structural precision of the MERN stack architecture.
+- **-ax Suffix**: Also alludes to "Parallax" (multi-angle learning) and "Maximize" (maximizing student potential).
+- **Full Meaning**: **"Quiz Automation & eXcellence"**.
+
+### 1.4 Definitions, Acronyms, and Abbreviations
 - **SRS**: Software Requirements Specification
 - **API**: Application Programming Interface
 - **UI**: User Interface
