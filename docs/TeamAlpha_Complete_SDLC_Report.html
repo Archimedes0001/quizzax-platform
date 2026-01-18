@@ -268,21 +268,18 @@
         <!-- TABLE OF CONTENTS -->
         <div class="toc page-break">
             <h1>Table of Contents</h1>
-            <div class="toc-item"><span>1.0 Project Charter & Introduction</span> <span>1</span></div>
-            <div class="toc-item"><span>2.0 Requirements Specification (SRS)</span> <span>3</span></div>
-            <div class="toc-item"><span>3.0 System Design (Architecture & DB)</span> <span>7</span></div>
-            <div class="toc-item"><span>4.0 User Interface Design</span> <span>10</span></div>
-            <div class="toc-item"><span>5.0 Implementation & Source Code</span> <span>12</span></div>
-            <div class="toc-item"><span>6.0 Version Control Strategy (Git)</span> <span>18</span></div>
-            <div class="toc-item"><span>7.0 Testing & Quality Assurance</span> <span>21</span></div>
-            <div class="toc-item"><span>8.0 Deployment Guide (MongoDB & Render)</span> <span>24</span></div>
-            <div class="toc-item"><span>9.0 User Manual & Maintenance</span> <span>28</span></div>
-            <div class="toc-item"><span>10.0 References & Glossary</span> <span>30</span></div>
+            <div class="toc-item"><span>Phase 1: Planning & Requirements Analysis</span> <span>1</span></div>
+            <div class="toc-item"><span>Phase 2: System Design</span> <span>7</span></div>
+            <div class="toc-item"><span>Phase 3: Implementation</span> <span>12</span></div>
+            <div class="toc-item"><span>Phase 4: Testing & Quality Assurance</span> <span>21</span></div>
+            <div class="toc-item"><span>Phase 5: Deployment & Documentation</span> <span>24</span></div>
+            <div class="toc-item"><span>References & Glossary</span> <span>30</span></div>
         </div>
 
         <!-- PHASE 1: CHARTER -->
         <div class="page-break">
-            <h1>1.0 Project Charter</h1>
+            <h1>Phase 1: Planning & Requirements Analysis</h1>
+            <h2>1.1 Project Charter</h2>
 
             <h2>1.1 Executive Summary</h2>
             <p>The Quizzax Assessment Platform was built to solve a specific problem in our faculty: the slow and
@@ -429,7 +426,7 @@
 
         <!-- PHASE 2: SRS -->
         <div class="page-break">
-            <h1>2.0 Requirements Specification (SRS)</h1>
+            <h2>1.2 Requirements Specification (SRS)</h2>
 
             <h2>2.1 Functional Requirements</h2>
             <p>This section outlines the specific inputs, processes, and outputs for the system's core functions. These
@@ -516,9 +513,9 @@
 
         <!-- PHASE 3: DESIGN -->
         <div class="page-break">
-            <h1>3.0 System Design</h1>
+            <h1>Phase 2: System Design</h1>
 
-            <h2>3.1 System Architecture</h2>
+            <h2>2.1 System Architecture Document</h2>
             <p>Quizzax utilizes a <strong>Three-Tier MERN Architecture</strong> (MongoDB, Express, React-concept/Vanilla
                 JS, Node).</p>
 
@@ -544,7 +541,7 @@
                     JavaScript frontend.</li>
             </ul>
 
-            <h2>3.2 Database Schema Design</h2>
+            <h2>2.2 Database Design</h2>
             <p>The `User` schema is the core of our data model. It embeds the `Quiz History` to optimize read
                 performance (Data Locality).</p>
             <pre><code>
@@ -576,7 +573,7 @@
                 document. This means fetching a student profile automatically fetches their entire history in one query.
             </p>
 
-            <h2>3.3 API Documentation (Interface Design)</h2>
+            <h3>3.2.1 API Documentation (Interface Design)</h3>
             <p>The following table details the RESTful endpoints exposed by the Node.js server.</p>
             <table>
                 <tr>
@@ -623,7 +620,7 @@
                 </tr>
             </table>
 
-            <h2>3.4 Scalability Strategy</h2>
+            <h3>3.2.2 Scalability Strategy</h3>
             <p>To ensure the system supports future growth from 200 to 2000+ students, we designed for scalability:</p>
             <ul>
                 <li><strong>Horizontal Scaling:</strong> The application is stateless. We can spin up multiple instances
@@ -638,7 +635,7 @@
 
         <!-- PHASE 4: UI DESIGN -->
         <div class="page-break">
-            <h1>4.0 User Interface Design</h1>
+            <h2>2.3 User Interface Design</h2>
 
             <h2>4.1 Design Philosophy: Glassmorphism</h2>
             <p>We chose the "Glassmorphism" style (frosted glass effect) because it looks modern and clean. It uses
@@ -684,10 +681,12 @@
 
         <!-- PHASE 5: IMPLEMENTATION -->
         <div class="page-break">
-            <h1>5.0 Implementation Details</h1>
-            <p>This section provides the actual code used to drive the system.</p>
+            <h1>Phase 3: Implementation</h1>
+            <h2>3.1 Source Code</h2>
+            <p>This section provides the actual code used to drive the system, demonstrating our code organization and
+                logical structure.</p>
 
-            <h2>5.1 Server Entry Point (server/index.js)</h2>
+            <h3>3.1.1 Server Entry Point (server/index.js)</h3>
             <p>This file bootstraps the Express application and defines the API routes.</p>
             <pre><code>
 const express = require('express');
@@ -719,7 +718,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
             </code></pre>
 
-            <h2>5.2 Client-Side State Management (client/app.js)</h2>
+            <h3>3.1.2 Client-Side State Management (client/app.js)</h3>
             <p>We implemented a singleton `AppState` object to manage the application data globally, mimicking Redux or
                 Context API in a Vanilla JS environment.</p>
             <pre><code>
@@ -751,7 +750,8 @@ function render() {
 }
             </code></pre>
 
-            <h2>5.3 The Fisher-Yates Shuffle</h2>
+            <h2>3.2 Implementation Report</h2>
+            <h3>3.2.1 Key Algorithms: Fisher-Yates Shuffle</h3>
             <p>The core of our randomization engine. This algorithm acts in O(n) time complexity, swapping elements from
                 the back of the array to the front.</p>
             <pre><code>
@@ -767,7 +767,7 @@ function shuffle(array) {
 }
             </code></pre>
 
-            <h2>5.4 Data Persistence Engine (Crash Recovery)</h2>
+            <h3>3.2.2 Data Persistence Engine (Crash Recovery)</h3>
             <p>One of the most critical features for "Presentation Points" is the <strong>Dual-Layer Persistence
                     System</strong>. This ensures that if a student's laptop battery dies or the browser crashes, they
                 can resume <em>exactly</em> where they left off.</p>
@@ -796,7 +796,7 @@ function triggerSave() {
 }
             </code></pre>
 
-            <h2>5.5 Centralized API Wrapper</h2>
+            <h3>3.2.3 Centralized API Wrapper</h3>
             <p>Instead of scattering `fetch` calls throughout the application, we implemented a <strong>Unified Request
                     Wrapper</strong>. This Design Pattern allows us to handle errors (like 401 Unauthorized or Network
                 Failures) in one single place, keeping the business logic clean.</p>
@@ -815,7 +815,7 @@ async request(endpoint, options = {}) {
 }
             </code></pre>
 
-            <h2>5.6 Project Directory Structure</h2>
+            <h3>3.1.3 Project Directory Structure</h3>
             <p>We followed industry-standard directory separation to decouple the Frontend from the Backend.</p>
             <pre>
 /quiz_app
@@ -831,7 +831,7 @@ async request(endpoint, options = {}) {
 └── package.json         # Dependency Manifest
             </pre>
 
-            <h2>5.7 Challenges & Problem Solving</h2>
+            <h3>3.2.4 Challenges & Problem Solving</h3>
             <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities like
                 <strong>Stack Overflow</strong> and MDN Docs to find solutions.
             </p>
@@ -859,7 +859,7 @@ async request(endpoint, options = {}) {
 
         <!-- PHASE 6: GIT -->
         <div class="page-break">
-            <h1>6.0 Version Control Strategy</h1>
+            <h2>3.3 Version Control Strategy</h2>
             <p>Effective collaboration requires strict version control. We used Git for SCM and GitHub for remote
                 hosting.</p>
 
@@ -924,10 +924,11 @@ $ git push -u origin main
 
         <!-- PHASE 7: TESTING -->
         <div class="page-break">
-            <h1>7.0 Testing & Quality Assurance</h1>
+            <h1>Phase 4: Testing & Quality Assurance</h1>
+            <h2>4.1 Test Plan</h2>
             <p>We conducted extensive manual black-box testing. Below is the complete Test Log.</p>
 
-            <h2>7.1 Test Log Matrix</h2>
+            <h2>4.2 Test Cases & Log</h2>
             <table>
                 <tr>
                     <th>Test ID</th>
@@ -1018,10 +1019,11 @@ $ git push -u origin main
 
         <!-- PHASE 8: DEPLOYMENT (MONGO & RENDER) -->
         <div class="page-break">
-            <h1>8.0 Deployment Guide</h1>
+            <h1>Phase 5: Deployment & Documentation</h1>
+            <h2>5.1 Deployment Guide</h2>
             <p>This section details the exact steps taken to deploy the application to the live internet.</p>
 
-            <h2>8.1 Part A: MongoDB Atlas Creation</h2>
+            <h3>5.1.1 Part A: MongoDB Atlas Creation</h3>
             <p><strong>Goal:</strong> Set up a cloud database to store user records.</p>
 
             <div class="step-box">
@@ -1052,7 +1054,7 @@ $ git push -u origin main
                 </p>
             </div>
 
-            <h2>8.2 Part B: Render.com Hosting</h2>
+            <h3>5.1.2 Part B: Render.com Hosting</h3>
             <p><strong>Goal:</strong> Host the Node.js API and Client artifacts.</p>
 
             <div class="step-box">
@@ -1089,9 +1091,7 @@ $ git push -u origin main
 
         <!-- PHASE 9: MAINTENANCE -->
         <div class="page-break">
-            <h1>9.0 User Manual & Maintenance</h1>
-
-            <h2>9.1 User Manual</h2>
+            <h2>5.2 User Manual</h2>
             <h3>Logging In</h3>
             <p>Open the URL. Enter your Matric Number. If you are authorized, you will enter the dashboard. If not,
                 contact the administrator.</p>
@@ -1100,7 +1100,7 @@ $ git push -u origin main
             <p>Click "Start Quiz". The timer will begin immediately. You cannot pause it. Click options to select
                 answers. Use "Next/Prev" to navigate. Click "Submit" when done.</p>
 
-            <h2>9.2 Maintenance Procedures</h2>
+            <h2>5.3 Maintenance Procedures (Future Enhancements)</h2>
             <h3>Database Backup</h3>
             <p>MongoDB Atlas performs automated daily snapshots. In case of data corruption, Navigate to Atlas >
                 Collections > Backups > Restore.</p>
@@ -1112,7 +1112,7 @@ $ git push -u origin main
 
         <!-- PHASE 10: REFS -->
         <div class="page-break">
-            <h1>10.0 References</h1>
+            <h1>References</h1>
             <ul>
                 <li>MongoDB Documentation. (2025). <em>Atlas Getting Started</em>. https://www.mongodb.com/docs/atlas/
                 </li>
@@ -1123,7 +1123,7 @@ $ git push -u origin main
 
         <!-- PHASE 11: GLOSSARY & CONCLUSION -->
         <div class="page-break">
-            <h1>11.0 Glossary & Conclusion</h1>
+            <h1>Glossary & Conclusion</h1>
 
             <h2>11.1 Conclusion</h2>
             <p>Building Quizzax was a challenging but rewarding experience for U24 MMED. We successfully moved from a
