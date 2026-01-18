@@ -77,7 +77,7 @@ app.post('/api/login', asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ matricNumber });
 
     if (!user) {
-        return next(new AppError('Unauthorized: Matric number not found in student database.', 403));
+        return next(new AppError('Matric number not found', 403));
     }
 
     console.log(`[Login] Authorized access for: ${user.name} (${user.matricNumber})`);
