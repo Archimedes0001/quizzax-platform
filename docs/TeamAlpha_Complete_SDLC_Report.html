@@ -740,6 +740,20 @@ function shuffle(array) {
     return array;
 }
             </code></pre>
+
+            <h2>5.4 Challenges & Problem Solving</h2>
+            <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities like
+                <strong>Stack Overflow</strong> and MDN Docs to find solutions.</p>
+            <div class="step-box">
+                <span class="step-num">Case Study: The Scrollbar Flicker</span>
+                <p><strong>Problem:</strong> Navigating between pages caused a jarring shift in layout due to the
+                    scrollbar appearing/disappearing.</p>
+                <p><strong>Research:</strong> We learned from a <a
+                        href="https://stackoverflow.com/questions/1417934">Stack Overflow thread</a> that forcing the
+                    scrollbar or locking `100vw` is a common fix.</p>
+                <p><strong>Solution:</strong> We applied `overflow-y: scroll` global CSS to ensure the scrollbar track
+                    is always present, stabilizing the layout.</p>
+            </div>
         </div>
 
         <!-- PHASE 6: GIT -->
