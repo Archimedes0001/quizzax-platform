@@ -939,6 +939,26 @@ async request(endpoint, options = {}) {
 }
             </code></pre>
 
+            <h3>Code Deep Dive: Robust Error Handling</h3>
+            <p>The wrapper intercepts every network request. If the internet disconnects, it doesn't just crash—it
+                constructs a rigorous error object that the UI can display as a friendly "Toast" notification.</p>
+            <pre><code>
+// client/app.js details
+async function request(url, options) {
+    try {
+        const response = await fetch(url, options);
+        if (response.status === 401) {
+             window.location.reload(); // Force re-login on session expiry
+        }
+        return response.json();
+    } catch (networkError) {
+        console.error("FATAL:", networkError);
+        // Retry logic could be added here
+        throw new Error("Server Unreachable");
+    }
+}
+            </code></pre>
+
             <h3>3.1.3 Project Directory Structure</h3>
             <p>We followed industry-standard directory separation to decouple the Frontend from the Backend.</p>
             <pre>
@@ -1264,6 +1284,36 @@ $ git push -u origin main
 
         <!-- PHASE 9: MAINTENANCE -->
         <div class="page-break">
+            <h3>5.1.3 Troubleshooting Guide</h3>
+            <p>Common issues encountered during deployment and their fixes.</p>
+            <table>
+                <tr>
+                    <th>Symptom</th>
+                    <th>Probable Cause</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td><strong>White Screen of Death</strong></td>
+                    <td>JavaScript Initialization Error</td>
+                    <td>Open Console (F12). Check if `app.js` failed to load. Clear Cache.</td>
+                </tr>
+                <tr>
+                    <td><strong>"Network Error" on Login</strong></td>
+                    <td>Render Server Asleep</td>
+                    <td>Wait 60 seconds. Free tier spins down after inactivity.</td>
+                </tr>
+                <tr>
+                    <td><strong>Blank PDF</strong></td>
+                    <td>CSS Print Media Query</td>
+                    <td>Ensure "Headers & Footers" is unchecked in Print Dialog.</td>
+                </tr>
+                <tr>
+                    <td><strong>Login Loop</strong></td>
+                    <td>Local Storage Corruption</td>
+                    <td>Run `localStorage.clear()` in console.</td>
+                </tr>
+            </table>
+
             <h2>5.2 User Manual</h2>
             <h3>Logging In</h3>
             <p>Open the URL. Enter your Matric Number. If you are authorized, you will enter the dashboard. If not,
