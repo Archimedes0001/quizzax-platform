@@ -283,12 +283,11 @@
             <h1>1.0 Project Charter</h1>
 
             <h2>1.1 Executive Summary</h2>
-            <p>The Quizzax Assessment Platform represents a significant technological leap for the Department of
-                Engineering. In an era where digital transformation is paramount, the reliance on paper-based continuous
-                assessments (CAs) has become a bottleneck for both instructors and students. Quizzax addresses this by
-                providing a unified, secure, and automated web-based environment for conducting quizzes. This report
-                details the entire Software Development Lifecycle (SDLC) from conception to deployment, demonstrating
-                adherence to modern engineering practices.</p>
+            <p>The Quizzax Assessment Platform was built to solve a specific problem in our faculty: the slow and
+                expensive process of manual quiz grading. Currently, lecturers spend weeks marking scripts, and the
+                department spends significant funds on paper. Our solution is a web-based testing environment that
+                automates the entire process—from taking the quiz to recording the grade. This report documents how we
+                built the system, the challenges we faced, and the engineering decisions we made along the way.</p>
 
             <h2>1.2 Problem Statement & Motivation</h2>
             <p>The current manual assessment process is plagued by several critical inefficiencies:</p>
@@ -365,13 +364,15 @@
             </table>
 
             <h2>1.5 Project Methodology</h2>
-            <p>We adopted the **Agile Scrum Methodology** for this project. This iterative approach allowed us to adapt
-                to changing requirements and deliver incremental value.</p>
+            <p>We used a simplified <strong>Agile Scrum</strong> approach to manage our time effectively given the short
+                semester constraints.</p>
             <ul>
-                <li><strong>Sprints:</strong> Logic and UI were developed in 1-week sprints.</li>
-                <li><strong>Daily Standups:</strong> Short meetings to discuss blockers (e.g., the Scrollbar Flicker
-                    bug).</li>
-                <li><strong>Review:</strong> End-of-week verification against the rubric.</li>
+                <li><strong>Sprints:</strong> We broke the project into 1-week cycles. Week 1 was for Design, Week 2 for
+                    the API, and Week 3 for the Frontend.</li>
+                <li><strong>Communication:</strong> We had short meetings every other day to check progress and help
+                    each other debug issues (like the stubborn scrollbar glitch).</li>
+                <li><strong>Code Review:</strong> Before merging features into the main branch, we checked each other's
+                    code to prevent breaking existing features.</li>
             </ul>
 
             <h2>1.6 Risk Management Plan</h2>
@@ -628,15 +629,14 @@
             <h1>4.0 User Interface Design</h1>
 
             <h2>4.1 Design Philosophy: Glassmorphism</h2>
-            <p>We adopted the "Glassmorphism" trend to create a premium, modern feel. Key characteristics implemented
-                include:</p>
+            <p>We chose the "Glassmorphism" style (frosted glass effect) because it looks modern and clean. It uses
+                semi-transparent backgrounds with a blur filter, making the content readable while keeping the interface
+                feeling open and not "boxy".</p>
             <ul>
-                <li><strong>Translucency:</strong> Background-blur (backdrop-filter: blur(16px)) on cards to create a
-                    frosted glass effect.</li>
-                <li><strong>Vivid Colors:</strong> Deep blue and purple gradients in the background to emphasize depth.
+                <li><strong>Visual Style:</strong> We used `backdrop-filter: blur(16px)` to create the glass effect.
                 </li>
-                <li><strong>Hierarchy:</strong> Use of white borders with low opacity to define boundaries without heavy
-                    lines.</li>
+                <li><strong>Colors:</strong> We stuck to a Dark Blue theme to mimic a professional, "night-mode" feel
+                    that is easy on the eyes.</li>
             </ul>
 
             <h2>4.2 Wireframe Descriptions</h2>
