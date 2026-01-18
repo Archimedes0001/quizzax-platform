@@ -650,6 +650,53 @@
                 document. This means fetching a student profile automatically fetches their entire history in one query.
             </p>
 
+            <h3>2.2.1 Data Dictionary</h3>
+            <p>This table defines the structure and data types of our MongoDB Collections, ensuring data integrity.</p>
+            <table>
+                <tr>
+                    <th>Field Name</th>
+                    <th>Data Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td colspan="4" style="background:#edf2f7; font-weight:bold;">Collection: Users</td>
+                </tr>
+                <tr>
+                    <td>_id</td>
+                    <td>ObjectId</td>
+                    <td>Yes</td>
+                    <td>Unique database identifier (Auto-generated).</td>
+                </tr>
+                <tr>
+                    <td>matricNumber</td>
+                    <td>String</td>
+                    <td>Yes</td>
+                    <td>Unique student ID. Indexed for O(1) lookup.</td>
+                </tr>
+                <tr>
+                    <td>activeSession</td>
+                    <td>Object</td>
+                    <td>No</td>
+                    <td>Temporary storage for on-going quiz state.</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="background:#edf2f7; font-weight:bold;">Sub-Document: QuizHistory</td>
+                </tr>
+                <tr>
+                    <td>score</td>
+                    <td>Number</td>
+                    <td>Yes</td>
+                    <td>Final percentage score (0-100).</td>
+                </tr>
+                <tr>
+                    <td>date</td>
+                    <td>Date</td>
+                    <td>Yes</td>
+                    <td>Timestamp of submission (ISO 8601).</td>
+                </tr>
+            </table>
+
             <h3>3.2.1 API Documentation (Interface Design)</h3>
             <p>The following table details the RESTful endpoints exposed by the Node.js server.</p>
             <table>
@@ -1089,6 +1136,55 @@ $ git push -u origin main
                     <td>Force Auto-Submit</td>
                     <td>1. Wait for timer to reach 00:00</td>
                     <td>Quiz submits IMMEDIATELY without "Are you sure?" popup.</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-12</td>
+                    <td>CSRF Protection</td>
+                    <td>1. Attempt to inject script in login input</td>
+                    <td>Input is sanitized. No alert box appears.</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-13</td>
+                    <td>Database Disconnect</td>
+                    <td>1. Turn off WiFi <br> 2. Click Submit</td>
+                    <td>System retries 3 times then shows "Network Error".</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-14</td>
+                    <td>Concurrent Login</td>
+                    <td>1. Login on Chrome <br> 2. Login on Firefox</td>
+                    <td>Second login is allowed (Stateless JWT/Session).</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-15</td>
+                    <td>Rapid Clicking</td>
+                    <td>1. Click "Next" 50 times in 5 seconds</td>
+                    <td>Debouncer prevents app crash. State stays consistent.</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-16</td>
+                    <td>Zero Timer</td>
+                    <td>1. Modify LocalStorage timer to 1s</td>
+                    <td>Quiz auto-submits immediately on reload.</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-17</td>
+                    <td>SQL Injection</td>
+                    <td>1. Enter "admin' OR 1=1--"</td>
+                    <td>Login rejected. NoSQL query remains secure.</td>
+                    <td><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td>TC-18</td>
+                    <td>Local Storage Tampering</td>
+                    <td>1. Edit 'quizProgress' JSON manually to malformed data</td>
+                    <td>App detects corruption, clears storage, and resets session safely.</td>
                     <td><strong>PASS</strong></td>
                 </tr>
             </table>
