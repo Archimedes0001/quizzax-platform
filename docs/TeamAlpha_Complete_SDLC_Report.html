@@ -609,6 +609,18 @@
                     <td>Array of Student Scores</td>
                 </tr>
             </table>
+
+            <h2>3.4 Scalability Strategy</h2>
+            <p>To ensure the system supports future growth from 200 to 2000+ students, we designed for scalability:</p>
+            <ul>
+                <li><strong>Horizontal Scaling:</strong> The application is stateless. We can spin up multiple instances
+                    of the Node.js server on Render.com behind a load balancer to handle increased traffic during exam
+                    weeks.</li>
+                <li><strong>Database Sharding:</strong> MongoDB Atlas allows sharding user data based on 'Department'
+                    key, ensuring queries remain fast as the dataset grows.</li>
+                <li><strong>CDN Integration:</strong> Future static assets (images, CSS) can be served via Cloudflare
+                    CDN to reduce server load.</li>
+            </ul>
         </div>
 
         <!-- PHASE 4: UI DESIGN -->
@@ -743,7 +755,8 @@ function shuffle(array) {
 
             <h2>5.4 Challenges & Problem Solving</h2>
             <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities like
-                <strong>Stack Overflow</strong> and MDN Docs to find solutions.</p>
+                <strong>Stack Overflow</strong> and MDN Docs to find solutions.
+            </p>
             <div class="step-box">
                 <span class="step-num">Case Study: The Scrollbar Flicker</span>
                 <p><strong>Problem:</strong> Navigating between pages caused a jarring shift in layout due to the
