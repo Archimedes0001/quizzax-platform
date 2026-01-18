@@ -270,7 +270,7 @@
             <h1>Table of Contents</h1>
             <div class="toc-item"><span>Phase 1: Planning & Requirements Analysis</span> <span>1</span></div>
             <div class="toc-item"><span>Phase 2: System Design</span> <span>7</span></div>
-            <div class="toc-item"><span>Phase 3: Implementation</span> <span>12</span></div>
+            <div class="toc-item"><span>Phase 3: Implementation (Includes Git SCM)</span> <span>12</span></div>
             <div class="toc-item"><span>Phase 4: Testing & Quality Assurance</span> <span>21</span></div>
             <div class="toc-item"><span>Phase 5: Deployment & Documentation</span> <span>24</span></div>
             <div class="toc-item"><span>References & Glossary</span> <span>30</span></div>
@@ -697,101 +697,41 @@
                 </tr>
             </table>
 
-            <h3>3.2.1 API Documentation (Interface Design)</h3>
-            <p>The following table details the RESTful endpoints exposed by the Node.js server.</p>
-            <table>
-                <tr>
-                    <th>Method</th>
-                    <th>Endpoint</th>
-                    <th>Description</th>
-                    <th>Request Body</th>
-                    <th>Response</th>
-                </tr>
-                <tr>
-                    <td>POST</td>
-                    <td><code>/api/login</code></td>
-                    <td>Authenticates a user.</td>
-                    <td><code>{ matricNumber: "U23..." }</code></td>
-                    <td>User Object</td>
-                </tr>
-                <tr>
-                    <td>GET</td>
-                    <td><code>/api/quizzes</code></td>
-                    <td>Fetches list of subjects.</td>
-                    <td>-</td>
-                    <td>Array of Subjects</td>
-                </tr>
-                <tr>
-                    <td>GET</td>
-                    <td><code>/api/quizzes/:id</code></td>
-                    <td>Fetches questions for a subject.</td>
-                    <td>-</td>
-                    <td>Quiz Object (50 Questions)</td>
-                </tr>
-                <tr>
-                    <td>POST</td>
-                    <td><code>/api/submit</code></td>
-                    <td>Submits final score.</td>
-                    <td><code>{ matric, score, ... }</code></td>
-                    <td><code>{ message: "Saved" }</code></td>
-                </tr>
-                <tr>
-                    <td>GET</td>
-                    <td><code>/api/leaderboard</code></td>
-                    <td>Fetches ranking data.</td>
-                    <td>-</td>
-                    <td>Array of Student Scores</td>
-                </tr>
-            </table>
+            <!-- 2.3 UI DESIGN -->
+            <div class="page-break">
+                <h2>2.3 User Interface Design</h2>
 
-            <h3>3.2.2 Scalability Strategy</h3>
-            <p>To ensure the system supports future growth from 200 to 2000+ students, we designed for scalability:</p>
-            <ul>
-                <li><strong>Horizontal Scaling:</strong> The application is stateless. We can spin up multiple instances
-                    of the Node.js server on Render.com behind a load balancer to handle increased traffic during exam
-                    weeks.</li>
-                <li><strong>Database Sharding:</strong> MongoDB Atlas allows sharding user data based on 'Department'
-                    key, ensuring queries remain fast as the dataset grows.</li>
-                <li><strong>CDN Integration:</strong> Future static assets (images, CSS) can be served via Cloudflare
-                    CDN to reduce server load.</li>
-            </ul>
-        </div>
+                <h3>2.3.1 Design Philosophy: Glassmorphism</h3>
+                <p>We chose the "Glassmorphism" style (frosted glass effect) because it looks modern and clean. It uses
+                    semi-transparent backgrounds with a blur filter, making the content readable while keeping the
+                    interface
+                    feeling open and not "boxy".</p>
+                <ul>
+                    <li><strong>Visual Style:</strong> We used `backdrop-filter: blur(16px)` to create the glass effect.
+                    </li>
+                    <li><strong>Colors:</strong> We stuck to a Dark Blue theme to mimic a professional, "night-mode"
+                        feel
+                        that is easy on the eyes.</li>
+                </ul>
 
-        <!-- PHASE 4: UI DESIGN -->
-        <div class="page-break">
-            <h2>2.3 User Interface Design</h2>
+                <h3>2.3.2 Wireframe Descriptions</h3>
+                <p><strong>Login Screen:</strong> A centered card layout. To solve the "Scrollbar Flicker" issue (Bug
+                    #142), we locked the viewport height (`100vh`) and hid overflow. The input field uses floating
+                    labels for a clean look.</p>
+                <p><strong>Quiz Interface:</strong> Designed for focus. We utilized a <strong>Two-Column Layout</strong>
+                    on Desktop:</p>
+                <ul>
+                    <li><strong>Left Sidebar:</strong> Contains the Question Grid (1-50) allowing random navigation.
+                        Questions are color-coded (Green=Answered, Yellow=Flagged, Gray=Unseen).</li>
+                    <li><strong>Main Area:</strong> Displays the Question Text and large, touch-friendly Option Buttons.
+                    </li>
+                </ul>
+                <p><strong>Mobile Responsiveness:</strong> On strict mobile viewports (< 768px), the sidebar collapses
+                        into a drawer.</p>
 
-            <h2>4.1 Design Philosophy: Glassmorphism</h2>
-            <p>We chose the "Glassmorphism" style (frosted glass effect) because it looks modern and clean. It uses
-                semi-transparent backgrounds with a blur filter, making the content readable while keeping the interface
-                feeling open and not "boxy".</p>
-            <ul>
-                <li><strong>Visual Style:</strong> We used `backdrop-filter: blur(16px)` to create the glass effect.
-                </li>
-                <li><strong>Colors:</strong> We stuck to a Dark Blue theme to mimic a professional, "night-mode" feel
-                    that is easy on the eyes.</li>
-            </ul>
-
-            <h2>4.2 Wireframe Descriptions</h2>
-
-            <h3>4.2.1 Login Screen</h3>
-            <p>A centered card layout. To solve the "Scrollbar Flicker" issue (Bug #142), we locked the viewport height
-                (`100vh`) and hid overflow. The input field uses floating labels for a clean look.</p>
-
-            <h3>4.2.2 Quiz Interface</h3>
-            <p>Designed for focus. We utilized a <strong>Two-Column Layout</strong> on Desktop:</p>
-            <ul>
-                <li><strong>Left Sidebar:</strong> Contains the Question Grid (1-50) allowing random navigation.
-                    Questions are color-coded (Green=Answered, Yellow=Flagged, Gray=Unseen).</li>
-                <li><strong>Main Area:</strong> Displays the Question Text and large, touch-friendly Option Buttons.
-                </li>
-            </ul>
-            <p><strong>Mobile Responsiveness:</strong> On strict mobile viewports (< 768px), the Sidebar collapses into
-                    a drawer or moves to the bottom to prioritize the question text.</p>
-
-                    <h3>4.3 CSS Implementation (Glassmorphism)</h3>
-                    <p>The following CSS class is applied to all cards to achieve the signature look:</p>
-                    <pre><code>
+                        <h3>2.3.3 CSS Implementation (Glassmorphism)</h3>
+                        <p>The following CSS class is applied to all cards to achieve the signature look:</p>
+                        <pre><code>
 .glass-panel {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(16px);  /* The core blur effect */
@@ -800,19 +740,80 @@
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     border-radius: 16px;
 }
-            </code></pre>
-        </div>
+                </code></pre>
+            </div>
 
-        <!-- PHASE 5: IMPLEMENTATION -->
-        <div class="page-break">
-            <h1>Phase 3: Implementation</h1>
-            <h2>3.1 Source Code</h2>
-            <p>This section provides the actual code used to drive the system, demonstrating our code organization and
-                logical structure.</p>
+            <!-- 2.4 API DESIGN -->
+            <div>
+                <h2>2.4 API Specification</h2>
+                <p>The following table details the RESTful endpoints exposed by the Node.js server.</p>
+                <table>
+                    <tr>
+                        <th>Method</th>
+                        <th>Endpoint</th>
+                        <th>Description</th>
+                        <th>Request Body</th>
+                        <th>Response</th>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td><code>/api/login</code></td>
+                        <td>Authenticates a user.</td>
+                        <td><code>{ matricNumber: "U23..." }</code></td>
+                        <td>User Object</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td><code>/api/quizzes</code></td>
+                        <td>Fetches list of subjects.</td>
+                        <td>-</td>
+                        <td>Array of Subjects</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td><code>/api/quizzes/:id</code></td>
+                        <td>Fetches questions for a subject.</td>
+                        <td>-</td>
+                        <td>Quiz Object (50 Questions)</td>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td><code>/api/submit</code></td>
+                        <td>Submits final score.</td>
+                        <td><code>{ matric, score, ... }</code></td>
+                        <td><code>{ message: "Saved" }</code></td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td><code>/api/leaderboard</code></td>
+                        <td>Fetches ranking data.</td>
+                        <td>-</td>
+                        <td>Array of Student Scores</td>
+                    </tr>
+                </table>
 
-            <h3>3.1.1 Server Entry Point (server/index.js)</h3>
-            <p>This file bootstraps the Express application and defines the API routes.</p>
-            <pre><code>
+                <h3>2.4.1 Scalability Strategy</h3>
+                <p>To ensure the system supports future growth from 200 to 2000+ students, we designed for scalability:
+                </p>
+                <ul>
+                    <li><strong>Horizontal Scaling:</strong> The application is stateless. We can spin up multiple
+                        instances of the Node.js server on Render.com behind a load balancer.</li>
+                    <li><strong>Database Sharding:</strong> MongoDB Atlas allows sharding user data based on
+                        'Department' key.</li>
+                </ul>
+            </div>
+
+            <!-- PHASE 5: IMPLEMENTATION -->
+            <div class="page-break">
+                <h1>Phase 3: Implementation</h1>
+                <h2>3.1 Source Code</h2>
+                <p>This section provides the actual code used to drive the system, demonstrating our code organization
+                    and
+                    logical structure.</p>
+
+                <h3>3.1.1 Server Entry Point (server/index.js)</h3>
+                <p>This file bootstraps the Express application and defines the API routes.</p>
+                <pre><code>
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -842,10 +843,11 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
             </code></pre>
 
-            <h3>3.1.2 Client-Side State Management (client/app.js)</h3>
-            <p>We implemented a singleton `AppState` object to manage the application data globally, mimicking Redux or
-                Context API in a Vanilla JS environment.</p>
-            <pre><code>
+                <h3>3.1.2 Client-Side State Management (client/app.js)</h3>
+                <p>We implemented a singleton `AppState` object to manage the application data globally, mimicking Redux
+                    or
+                    Context API in a Vanilla JS environment.</p>
+                <pre><code>
 const AppState = {
     user: null,
     currentQuiz: null,
@@ -874,11 +876,12 @@ function render() {
 }
             </code></pre>
 
-            <h2>3.2 Implementation Report</h2>
-            <h3>3.2.1 Key Algorithms: Fisher-Yates Shuffle</h3>
-            <p>The core of our randomization engine. This algorithm acts in O(n) time complexity, swapping elements from
-                the back of the array to the front.</p>
-            <pre><code>
+                <h2>3.2 Implementation Report</h2>
+                <h3>3.2.1 Key Algorithms: Fisher-Yates Shuffle</h3>
+                <p>The core of our randomization engine. This algorithm acts in O(n) time complexity, swapping elements
+                    from
+                    the back of the array to the front.</p>
+                <pre><code>
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -891,17 +894,20 @@ function shuffle(array) {
 }
             </code></pre>
 
-            <h3>3.2.2 Data Persistence Engine (Crash Recovery)</h3>
-            <p>One of the most critical features for "Presentation Points" is the <strong>Dual-Layer Persistence
-                    System</strong>. This ensures that if a student's laptop battery dies or the browser crashes, they
-                can resume <em>exactly</em> where they left off.</p>
-            <p><strong>Mechanism:</strong></p>
-            <ul>
-                <li><strong>Local Layer:</strong> Every 30 seconds (and on every answer change), the state is serialized
-                    to `localStorage`.</li>
-                <li><strong>Remote Layer:</strong> An asynchronous background request sends this state to MongoDB.</li>
-            </ul>
-            <pre><code>
+                <h3>3.2.2 Data Persistence Engine (Crash Recovery)</h3>
+                <p>One of the most critical features for "Presentation Points" is the <strong>Dual-Layer Persistence
+                        System</strong>. This ensures that if a student's laptop battery dies or the browser crashes,
+                    they
+                    can resume <em>exactly</em> where they left off.</p>
+                <p><strong>Mechanism:</strong></p>
+                <ul>
+                    <li><strong>Local Layer:</strong> Every 30 seconds (and on every answer change), the state is
+                        serialized
+                        to `localStorage`.</li>
+                    <li><strong>Remote Layer:</strong> An asynchronous background request sends this state to MongoDB.
+                    </li>
+                </ul>
+                <pre><code>
 // client/app.js - Persistence Logic
 function triggerSave() {
     if (!AppState.user) return;
@@ -920,11 +926,13 @@ function triggerSave() {
 }
             </code></pre>
 
-            <h3>3.2.3 Centralized API Wrapper</h3>
-            <p>Instead of scattering `fetch` calls throughout the application, we implemented a <strong>Unified Request
-                    Wrapper</strong>. This Design Pattern allows us to handle errors (like 401 Unauthorized or Network
-                Failures) in one single place, keeping the business logic clean.</p>
-            <pre><code>
+                <h3>3.2.3 Centralized API Wrapper</h3>
+                <p>Instead of scattering `fetch` calls throughout the application, we implemented a <strong>Unified
+                        Request
+                        Wrapper</strong>. This Design Pattern allows us to handle errors (like 401 Unauthorized or
+                    Network
+                    Failures) in one single place, keeping the business logic clean.</p>
+                <pre><code>
 // Standardized Error Handling Pattern
 async request(endpoint, options = {}) {
     try {
@@ -939,10 +947,10 @@ async request(endpoint, options = {}) {
 }
             </code></pre>
 
-            <h3>Code Deep Dive: Robust Error Handling</h3>
-            <p>The wrapper intercepts every network request. If the internet disconnects, it doesn't just crash—it
-                constructs a rigorous error object that the UI can display as a friendly "Toast" notification.</p>
-            <pre><code>
+                <h3>Code Deep Dive: Robust Error Handling</h3>
+                <p>The wrapper intercepts every network request. If the internet disconnects, it doesn't just crash—it
+                    constructs a rigorous error object that the UI can display as a friendly "Toast" notification.</p>
+                <pre><code>
 // client/app.js details
 async function request(url, options) {
     try {
@@ -959,9 +967,9 @@ async function request(url, options) {
 }
             </code></pre>
 
-            <h3>3.1.3 Project Directory Structure</h3>
-            <p>We followed industry-standard directory separation to decouple the Frontend from the Backend.</p>
-            <pre>
+                <h3>3.1.3 Project Directory Structure</h3>
+                <p>We followed industry-standard directory separation to decouple the Frontend from the Backend.</p>
+                <pre>
 /quiz_app
 ├── client/              # Frontend Tier
 │   ├── index.html       # Entry Point
@@ -975,63 +983,68 @@ async function request(url, options) {
 └── package.json         # Dependency Manifest
             </pre>
 
-            <h3>3.2.4 Challenges & Problem Solving</h3>
-            <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities like
-                <strong>Stack Overflow</strong> and MDN Docs to find solutions.
-            </p>
-            <div class="step-box">
-                <span class="step-num">Case Study: The Scrollbar Flicker</span>
-                <p><strong>Problem:</strong> Navigating between pages caused a jarring shift in layout due to the
-                    scrollbar appearing/disappearing.</p>
-                <p><strong>Research:</strong> We learned from a <a
-                        href="https://stackoverflow.com/questions/1417934">Stack Overflow thread</a> that forcing the
-                    scrollbar or locking `100vw` is a common fix.</p>
-                <p><strong>Solution:</strong> We applied `overflow-y: scroll` global CSS to ensure the scrollbar track
-                    is always present, stabilizing the layout.</p>
-            </div>
-
-            <div class="step-box">
-                <span class="step-num">Case Study: Auto-Submission Logic</span>
-                <p><strong>Problem:</strong> Originally, when the timer hit 00:00, the system triggered a "Confirm
-                    Submission?" dialog. This was problematic as it allowed students to stall.</p>
-                <p><strong>Solution:</strong> We refactored the <code>submitQuiz()</code> function to accept a
-                    <code>force</code> parameter. When triggered by the timer, <code>submitQuiz(true)</code> is called,
-                    bypassing the confirmation modal and ensuring instant, fail-safe submission.
+                <h3>3.2.4 Challenges & Problem Solving</h3>
+                <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities
+                    like
+                    <strong>Stack Overflow</strong> and MDN Docs to find solutions.
                 </p>
+                <div class="step-box">
+                    <span class="step-num">Case Study: The Scrollbar Flicker</span>
+                    <p><strong>Problem:</strong> Navigating between pages caused a jarring shift in layout due to the
+                        scrollbar appearing/disappearing.</p>
+                    <p><strong>Research:</strong> We learned from a <a
+                            href="https://stackoverflow.com/questions/1417934">Stack Overflow thread</a> that forcing
+                        the
+                        scrollbar or locking `100vw` is a common fix.</p>
+                    <p><strong>Solution:</strong> We applied `overflow-y: scroll` global CSS to ensure the scrollbar
+                        track
+                        is always present, stabilizing the layout.</p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Case Study: Auto-Submission Logic</span>
+                    <p><strong>Problem:</strong> Originally, when the timer hit 00:00, the system triggered a "Confirm
+                        Submission?" dialog. This was problematic as it allowed students to stall.</p>
+                    <p><strong>Solution:</strong> We refactored the <code>submitQuiz()</code> function to accept a
+                        <code>force</code> parameter. When triggered by the timer, <code>submitQuiz(true)</code> is
+                        called,
+                        bypassing the confirmation modal and ensuring instant, fail-safe submission.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- PHASE 3 CONTINUED: GIT -->
-        <div class="step-box">
-            <h2>3.3 Version Control Strategy</h2>
-            <p>Effective collaboration requires strict version control. We used Git for SCM and GitHub for remote
-                hosting.</p>
-
-            <h3>3.3.1 Repository Setup Workflow</h3>
+            <!-- PHASE 3 CONTINUED: GIT -->
             <div class="step-box">
-                <span class="step-num">Step 1: Initialization</span>
-                <p>We initiated the local repository in the project root.</p>
-                <pre>
+                <h2>3.3 Version Control Strategy</h2>
+                <p>Effective collaboration requires strict version control. We used Git for SCM and GitHub for remote
+                    hosting.</p>
+
+                <h3>3.3.1 Repository Setup Workflow</h3>
+                <div class="step-box">
+                    <span class="step-num">Step 1: Initialization</span>
+                    <p>We initiated the local repository in the project root.</p>
+                    <pre>
 $ git init
 > Initialized empty Git repository in C:/Projects/quiz_app/.git/
                 </pre>
-            </div>
+                </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 2: Ignoring Files</span>
-                <p>We created a `.gitignore` file to prevent `node_modules` and `.env` files from being uploaded. This
-                    is crucial for security and performance.</p>
-                <pre>
+                <div class="step-box">
+                    <span class="step-num">Step 2: Ignoring Files</span>
+                    <p>We created a `.gitignore` file to prevent `node_modules` and `.env` files from being uploaded.
+                        This
+                        is crucial for security and performance.</p>
+                    <pre>
 node_modules/
 .env
 .DS_Store
                 </pre>
-            </div>
+                </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 3: Staging changes</span>
-                <p>We verified the status of our files before staging.</p>
-                <pre>
+                <div class="step-box">
+                    <span class="step-num">Step 3: Staging changes</span>
+                    <p>We verified the status of our files before staging.</p>
+                    <pre>
 $ git status
 > Untracked files:
 >   client/
@@ -1040,355 +1053,363 @@ $ git status
 
 $ git add .
                 </pre>
-            </div>
+                </div>
 
-            <h3>3.3.2 Push Workflow</h3>
-            <div class="step-box">
-                <span class="step-num">Step 4: Committing</span>
-                <p>We used descriptive commit messages following the "Conventional Commits" standard.</p>
-                <pre>
+                <h3>3.3.2 Push Workflow</h3>
+                <div class="step-box">
+                    <span class="step-num">Step 4: Committing</span>
+                    <p>We used descriptive commit messages following the "Conventional Commits" standard.</p>
+                    <pre>
 $ git commit -m "Feat: Complete Quiz Interface styling"
 > [main 4f2a1d] Feat: Complete Quiz Interface styling
 > 4 files changed, 203 insertions(+)
                 </pre>
-            </div>
+                </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 5: Remote & Push</span>
-                <p>Linking local to remote and pushing.</p>
-                <pre>
+                <div class="step-box">
+                    <span class="step-num">Step 5: Remote & Push</span>
+                    <p>Linking local to remote and pushing.</p>
+                    <pre>
 $ git remote add origin https://github.com/TeamAlpha/quizzax-platform.git
 $ git push -u origin main
 > Enumerating objects: 24, done.
 > To https://github.com/TeamAlpha/quizzax-platform.git
 > * [new branch]      main -> main
                 </pre>
-            </div>
-        </div>
-
-        <!-- PHASE 7: TESTING -->
-        <div class="page-break">
-            <h1>Phase 4: Testing & Quality Assurance</h1>
-            <h2>4.1 Test Plan</h2>
-            <p>We conducted extensive manual black-box testing. Below is the complete Test Log.</p>
-
-            <h2>4.2 Test Cases & Log</h2>
-            <table>
-                <tr>
-                    <th>Test ID</th>
-                    <th>Test Case Description</th>
-                    <th>Steps</th>
-                    <th>Expected Result</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>TC-01</td>
-                    <td>Valid Login</td>
-                    <td>1. Open App<br>2. Enter "U24ICE1001"<br>3. Click "Sign In"</td>
-                    <td>Redirects to Dashboard. Name "Amara Okeke" shown.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-02</td>
-                    <td>Invalid Login</td>
-                    <td>1. Enter "INVALID_ID"<br>2. Click "Sign In"</td>
-                    <td>Toast error: "Unauthorized access".</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-03</td>
-                    <td>Quiz Timer Start</td>
-                    <td>1. Select subject<br>2. Click Start</td>
-                    <td>Timer begins counting down from 15:00 immediately.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-04</td>
-                    <td>Option Selection</td>
-                    <td>1. Click Option A</td>
-                    <td>Option A turns Blue/Active. Selection state saved.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-05</td>
-                    <td>Navigation</td>
-                    <td>1. Click Next<br>2. Click Prev</td>
-                    <td>Moves to Q2. Returns to Q1. Answer Q1 persists.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-06</td>
-                    <td>Flagging</td>
-                    <td>1. Click Flag Icon</td>
-                    <td>Flag turns yellow. Sidebar dot turns yellow.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-07</td>
-                    <td>Auto-Submit</td>
-                    <td>1. Let timer reach 00:00</td>
-                    <td>Quiz automatically submits. Result screen shown.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-08</td>
-                    <td>Close Browser</td>
-                    <td>1. During Quiz, close tab<br>2. Re-open URL</td>
-                    <td>Prompts "Resume Session?". Restores Q# and Time.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-09</td>
-                    <td>Score Calculation</td>
-                    <td>1. Select 5 Correct Answers<br>2. Submit</td>
-                    <td>Result shows 100% or 5/5.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-10</td>
-                    <td>Dark Mode</td>
-                    <td>1. Not implemented yet</td>
-                    <td>N/A</td>
-                    <td>SKIP</td>
-                </tr>
-                <tr>
-                    <td>TC-11</td>
-                    <td>Force Auto-Submit</td>
-                    <td>1. Wait for timer to reach 00:00</td>
-                    <td>Quiz submits IMMEDIATELY without "Are you sure?" popup.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-12</td>
-                    <td>CSRF Protection</td>
-                    <td>1. Attempt to inject script in login input</td>
-                    <td>Input is sanitized. No alert box appears.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-13</td>
-                    <td>Database Disconnect</td>
-                    <td>1. Turn off WiFi <br> 2. Click Submit</td>
-                    <td>System retries 3 times then shows "Network Error".</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-14</td>
-                    <td>Concurrent Login</td>
-                    <td>1. Login on Chrome <br> 2. Login on Firefox</td>
-                    <td>Second login is allowed (Stateless JWT/Session).</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-15</td>
-                    <td>Rapid Clicking</td>
-                    <td>1. Click "Next" 50 times in 5 seconds</td>
-                    <td>Debouncer prevents app crash. State stays consistent.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-16</td>
-                    <td>Zero Timer</td>
-                    <td>1. Modify LocalStorage timer to 1s</td>
-                    <td>Quiz auto-submits immediately on reload.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-17</td>
-                    <td>SQL Injection</td>
-                    <td>1. Enter "admin' OR 1=1--"</td>
-                    <td>Login rejected. NoSQL query remains secure.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-                <tr>
-                    <td>TC-18</td>
-                    <td>Local Storage Tampering</td>
-                    <td>1. Edit 'quizProgress' JSON manually to malformed data</td>
-                    <td>App detects corruption, clears storage, and resets session safely.</td>
-                    <td><strong>PASS</strong></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- PHASE 8: DEPLOYMENT (MONGO & RENDER) -->
-        <div class="page-break">
-            <h1>Phase 5: Deployment & Documentation</h1>
-            <h2>5.1 Deployment Guide</h2>
-            <p>This section details the exact steps taken to deploy the application to the live internet.</p>
-
-            <h3>5.1.1 Part A: MongoDB Atlas Creation</h3>
-            <p><strong>Goal:</strong> Set up a cloud database to store user records.</p>
-
-            <div class="step-box">
-                <span class="step-num">Step 1: Cluster Provisioning</span>
-                <p>We navigated to <a href="https://mongodb.com/atlas">MongoDB Atlas</a> and created a new account. We
-                    selected the <strong>Shared (Free) Tier</strong> to avoid costs during development. We chose
-                    <strong>AWS (us-east-1)</strong> as the region for low latency.
-                </p>
+                </div>
             </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 2: Database User</span>
-                <p>We created a database user `admin_main` with the password `securePassword123` (placeholder). This
-                    user has `readWriteAnyDatabase` privileges.</p>
+            <!-- PHASE 7: TESTING -->
+            <div class="page-break">
+                <h1>Phase 4: Testing & Quality Assurance</h1>
+                <h2>4.1 Test Plan</h2>
+                <p>We conducted extensive manual black-box testing. Below is the complete Test Log.</p>
+
+                <h2>4.2 Test Cases & Log</h2>
+                <table>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case Description</th>
+                        <th>Steps</th>
+                        <th>Expected Result</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>TC-01</td>
+                        <td>Valid Login</td>
+                        <td>1. Open App<br>2. Enter "U24ICE1001"<br>3. Click "Sign In"</td>
+                        <td>Redirects to Dashboard. Name "Amara Okeke" shown.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-02</td>
+                        <td>Invalid Login</td>
+                        <td>1. Enter "INVALID_ID"<br>2. Click "Sign In"</td>
+                        <td>Toast error: "Unauthorized access".</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-03</td>
+                        <td>Quiz Timer Start</td>
+                        <td>1. Select subject<br>2. Click Start</td>
+                        <td>Timer begins counting down from 15:00 immediately.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-04</td>
+                        <td>Option Selection</td>
+                        <td>1. Click Option A</td>
+                        <td>Option A turns Blue/Active. Selection state saved.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-05</td>
+                        <td>Navigation</td>
+                        <td>1. Click Next<br>2. Click Prev</td>
+                        <td>Moves to Q2. Returns to Q1. Answer Q1 persists.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-06</td>
+                        <td>Flagging</td>
+                        <td>1. Click Flag Icon</td>
+                        <td>Flag turns yellow. Sidebar dot turns yellow.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-07</td>
+                        <td>Auto-Submit</td>
+                        <td>1. Let timer reach 00:00</td>
+                        <td>Quiz automatically submits. Result screen shown.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-08</td>
+                        <td>Close Browser</td>
+                        <td>1. During Quiz, close tab<br>2. Re-open URL</td>
+                        <td>Prompts "Resume Session?". Restores Q# and Time.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-09</td>
+                        <td>Score Calculation</td>
+                        <td>1. Select 5 Correct Answers<br>2. Submit</td>
+                        <td>Result shows 100% or 5/5.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-10</td>
+                        <td>Dark Mode</td>
+                        <td>1. Not implemented yet</td>
+                        <td>N/A</td>
+                        <td>SKIP</td>
+                    </tr>
+                    <tr>
+                        <td>TC-11</td>
+                        <td>Force Auto-Submit</td>
+                        <td>1. Wait for timer to reach 00:00</td>
+                        <td>Quiz submits IMMEDIATELY without "Are you sure?" popup.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-12</td>
+                        <td>CSRF Protection</td>
+                        <td>1. Attempt to inject script in login input</td>
+                        <td>Input is sanitized. No alert box appears.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-13</td>
+                        <td>Database Disconnect</td>
+                        <td>1. Turn off WiFi <br> 2. Click Submit</td>
+                        <td>System retries 3 times then shows "Network Error".</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-14</td>
+                        <td>Concurrent Login</td>
+                        <td>1. Login on Chrome <br> 2. Login on Firefox</td>
+                        <td>Second login is allowed (Stateless JWT/Session).</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-15</td>
+                        <td>Rapid Clicking</td>
+                        <td>1. Click "Next" 50 times in 5 seconds</td>
+                        <td>Debouncer prevents app crash. State stays consistent.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-16</td>
+                        <td>Zero Timer</td>
+                        <td>1. Modify LocalStorage timer to 1s</td>
+                        <td>Quiz auto-submits immediately on reload.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-17</td>
+                        <td>SQL Injection</td>
+                        <td>1. Enter "admin' OR 1=1--"</td>
+                        <td>Login rejected. NoSQL query remains secure.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                    <tr>
+                        <td>TC-18</td>
+                        <td>Local Storage Tampering</td>
+                        <td>1. Edit 'quizProgress' JSON manually to malformed data</td>
+                        <td>App detects corruption, clears storage, and resets session safely.</td>
+                        <td><strong>PASS</strong></td>
+                    </tr>
+                </table>
             </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 3: Network Access (IP Whitelist)</span>
-                <p>We navigated to "Network Access" and clicked "Add IP Address". We selected <strong>"Allow Access from
-                        Anywhere" (0.0.0.0/0)</strong>. Ideally, we would whitelist only the Render server IP, but
-                    Render IPs are dynamic, so this global allowance is necessary for the free tier.</p>
+            <!-- PHASE 8: DEPLOYMENT (MONGO & RENDER) -->
+            <div class="page-break">
+                <h1>Phase 5: Deployment & Documentation</h1>
+                <h2>5.1 Deployment Guide</h2>
+                <p>This section details the exact steps taken to deploy the application to the live internet.</p>
+
+                <h3>5.1.1 Part A: MongoDB Atlas Creation</h3>
+                <p><strong>Goal:</strong> Set up a cloud database to store user records.</p>
+
+                <div class="step-box">
+                    <span class="step-num">Step 1: Cluster Provisioning</span>
+                    <p>We navigated to <a href="https://mongodb.com/atlas">MongoDB Atlas</a> and created a new account.
+                        We
+                        selected the <strong>Shared (Free) Tier</strong> to avoid costs during development. We chose
+                        <strong>AWS (us-east-1)</strong> as the region for low latency.
+                    </p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 2: Database User</span>
+                    <p>We created a database user `admin_main` with the password `securePassword123` (placeholder). This
+                        user has `readWriteAnyDatabase` privileges.</p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 3: Network Access (IP Whitelist)</span>
+                    <p>We navigated to "Network Access" and clicked "Add IP Address". We selected <strong>"Allow Access
+                            from
+                            Anywhere" (0.0.0.0/0)</strong>. Ideally, we would whitelist only the Render server IP, but
+                        Render IPs are dynamic, so this global allowance is necessary for the free tier.</p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 4: Connection String</span>
+                    <p>We obtained the SRV connection string:
+                        <code>mongodb+srv://admin_main:password@cluster0.mongodb.net/?retryWrites=true&w=majority</code>.
+                    </p>
+                </div>
+
+                <h3>5.1.2 Part B: Render.com Hosting</h3>
+                <p><strong>Goal:</strong> Host the Node.js API and Client artifacts.</p>
+
+                <div class="step-box">
+                    <span class="step-num">Step 1: Connect GitHub</span>
+                    <p>On the Render Dashboard, we clicked "New Web Service" and authorized Render to access our GitHub
+                        account. We selected the `quizzax-platform` repository.</p>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 2: Build & Start Commands</span>
+                    <p>We configured the environment:</p>
+                    <ul>
+                        <li><strong>Build Command:</strong> <code>npm install</code> (Installs dependencies).</li>
+                        <li><strong>Start Command:</strong> <code>npm start</code> (Runs
+                            <code>node server/index.js</code>).
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 3: Environment Variables</span>
+                    <p>This is the most critical step for security. We manually added the variables:</p>
+                    <ul>
+                        <li><code>MONGO_URI</code> = (The Connection String from Part A)</li>
+                        <li><code>NODE_ENV</code> = <code>production</code></li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <span class="step-num">Step 4: Verify Deployment</span>
+                    <p>After clicking "Deploy", we monitored the logs. The message "Connected to MongoDB" confirmed
+                        success.
+                        The app is now live at <code>https://quizzax.onrender.com</code>.</p>
+                </div>
             </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 4: Connection String</span>
-                <p>We obtained the SRV connection string:
-                    <code>mongodb+srv://admin_main:password@cluster0.mongodb.net/?retryWrites=true&w=majority</code>.
-                </p>
+            <!-- PHASE 9: MAINTENANCE -->
+            <div class="page-break">
+                <h3>5.1.3 Troubleshooting Guide</h3>
+                <p>Common issues encountered during deployment and their fixes.</p>
+                <table>
+                    <tr>
+                        <th>Symptom</th>
+                        <th>Probable Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td><strong>White Screen of Death</strong></td>
+                        <td>JavaScript Initialization Error</td>
+                        <td>Open Console (F12). Check if `app.js` failed to load. Clear Cache.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"Network Error" on Login</strong></td>
+                        <td>Render Server Asleep</td>
+                        <td>Wait 60 seconds. Free tier spins down after inactivity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blank PDF</strong></td>
+                        <td>CSS Print Media Query</td>
+                        <td>Ensure "Headers & Footers" is unchecked in Print Dialog.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Login Loop</strong></td>
+                        <td>Local Storage Corruption</td>
+                        <td>Run `localStorage.clear()` in console.</td>
+                    </tr>
+                </table>
+
+                <h2>5.2 User Manual</h2>
+                <h3>Logging In</h3>
+                <p>Open the URL. Enter your Matric Number. If you are authorized, you will enter the dashboard. If not,
+                    contact the administrator.</p>
+
+                <h3>Taking a Quiz</h3>
+                <p>Click "Start Quiz". The timer will begin immediately. You cannot pause it. Click options to select
+                    answers. Use "Next/Prev" to navigate. Click "Submit" when done.</p>
+
+                <h2>5.3 Maintenance Procedures (Future Enhancements)</h2>
+                <h3>Database Backup</h3>
+                <p>MongoDB Atlas performs automated daily snapshots. In case of data corruption, Navigate to Atlas >
+                    Collections > Backups > Restore.</p>
+
+                <h3>Adding New Students</h3>
+                <p>Currently, this is done by updating the `students` array in `server/utils/studentData.js` and pushing
+                    the
+                    changes to Git. The server will auto-sync on restart.</p>
             </div>
 
-            <h3>5.1.2 Part B: Render.com Hosting</h3>
-            <p><strong>Goal:</strong> Host the Node.js API and Client artifacts.</p>
-
-            <div class="step-box">
-                <span class="step-num">Step 1: Connect GitHub</span>
-                <p>On the Render Dashboard, we clicked "New Web Service" and authorized Render to access our GitHub
-                    account. We selected the `quizzax-platform` repository.</p>
-            </div>
-
-            <div class="step-box">
-                <span class="step-num">Step 2: Build & Start Commands</span>
-                <p>We configured the environment:</p>
+            <!-- PHASE 10: REFS -->
+            <div class="page-break">
+                <h1>References</h1>
                 <ul>
-                    <li><strong>Build Command:</strong> <code>npm install</code> (Installs dependencies).</li>
-                    <li><strong>Start Command:</strong> <code>npm start</code> (Runs <code>node server/index.js</code>).
+                    <li>MongoDB Documentation. (2025). <em>Atlas Getting Started</em>.
+                        https://www.mongodb.com/docs/atlas/
                     </li>
+                    <li>MDN Web Docs. (2025). <em>Fisher-Yates Shuffle</em>. https://developer.mozilla.org</li>
+                    <li>Express.js. (2025). <em>Routing Guide</em>. https://expressjs.com</li>
                 </ul>
             </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 3: Environment Variables</span>
-                <p>This is the most critical step for security. We manually added the variables:</p>
-                <ul>
-                    <li><code>MONGO_URI</code> = (The Connection String from Part A)</li>
-                    <li><code>NODE_ENV</code> = <code>production</code></li>
-                </ul>
+            <!-- PHASE 11: GLOSSARY & CONCLUSION -->
+            <div class="page-break">
+                <h1>Glossary & Conclusion</h1>
+
+                <h2>11.1 Conclusion</h2>
+                <p>Building Quizzax was a challenging but rewarding experience for U24 MMED. We successfully moved from
+                    a
+                    basic idea to a fully functional web application that actually works. While we faced some tricky
+                    bugs—especially with the timer synchronization and UI layout—we learned a lot about full-stack
+                    development. The final product meets all the core requirements: it's secure, fast, and saves the
+                    faculty
+                    a lot of manual work.</p>
+
+                <h2>11.2 Glossary of Terms</h2>
+                <table>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                    <tr>
+                        <td><strong>API</strong></td>
+                        <td>Application Programming Interface.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MERN</strong></td>
+                        <td>MongoDB, Express, React (Vanilla), Node.js stack.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SDLC</strong></td>
+                        <td>Software Development Lifecycle.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SPA</strong></td>
+                        <td>Single Page Application.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fisher-Yates</strong></td>
+                        <td>An algorithm for generating a random permutation of a finite sequence.</td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 100px; text-align: center; font-style: italic;">
+                    <p>*** End of Report ***</p>
+                </div>
             </div>
 
-            <div class="step-box">
-                <span class="step-num">Step 4: Verify Deployment</span>
-                <p>After clicking "Deploy", we monitored the logs. The message "Connected to MongoDB" confirmed success.
-                    The app is now live at <code>https://quizzax.onrender.com</code>.</p>
-            </div>
         </div>
-
-        <!-- PHASE 9: MAINTENANCE -->
-        <div class="page-break">
-            <h3>5.1.3 Troubleshooting Guide</h3>
-            <p>Common issues encountered during deployment and their fixes.</p>
-            <table>
-                <tr>
-                    <th>Symptom</th>
-                    <th>Probable Cause</th>
-                    <th>Solution</th>
-                </tr>
-                <tr>
-                    <td><strong>White Screen of Death</strong></td>
-                    <td>JavaScript Initialization Error</td>
-                    <td>Open Console (F12). Check if `app.js` failed to load. Clear Cache.</td>
-                </tr>
-                <tr>
-                    <td><strong>"Network Error" on Login</strong></td>
-                    <td>Render Server Asleep</td>
-                    <td>Wait 60 seconds. Free tier spins down after inactivity.</td>
-                </tr>
-                <tr>
-                    <td><strong>Blank PDF</strong></td>
-                    <td>CSS Print Media Query</td>
-                    <td>Ensure "Headers & Footers" is unchecked in Print Dialog.</td>
-                </tr>
-                <tr>
-                    <td><strong>Login Loop</strong></td>
-                    <td>Local Storage Corruption</td>
-                    <td>Run `localStorage.clear()` in console.</td>
-                </tr>
-            </table>
-
-            <h2>5.2 User Manual</h2>
-            <h3>Logging In</h3>
-            <p>Open the URL. Enter your Matric Number. If you are authorized, you will enter the dashboard. If not,
-                contact the administrator.</p>
-
-            <h3>Taking a Quiz</h3>
-            <p>Click "Start Quiz". The timer will begin immediately. You cannot pause it. Click options to select
-                answers. Use "Next/Prev" to navigate. Click "Submit" when done.</p>
-
-            <h2>5.3 Maintenance Procedures (Future Enhancements)</h2>
-            <h3>Database Backup</h3>
-            <p>MongoDB Atlas performs automated daily snapshots. In case of data corruption, Navigate to Atlas >
-                Collections > Backups > Restore.</p>
-
-            <h3>Adding New Students</h3>
-            <p>Currently, this is done by updating the `students` array in `server/utils/studentData.js` and pushing the
-                changes to Git. The server will auto-sync on restart.</p>
-        </div>
-
-        <!-- PHASE 10: REFS -->
-        <div class="page-break">
-            <h1>References</h1>
-            <ul>
-                <li>MongoDB Documentation. (2025). <em>Atlas Getting Started</em>. https://www.mongodb.com/docs/atlas/
-                </li>
-                <li>MDN Web Docs. (2025). <em>Fisher-Yates Shuffle</em>. https://developer.mozilla.org</li>
-                <li>Express.js. (2025). <em>Routing Guide</em>. https://expressjs.com</li>
-            </ul>
-        </div>
-
-        <!-- PHASE 11: GLOSSARY & CONCLUSION -->
-        <div class="page-break">
-            <h1>Glossary & Conclusion</h1>
-
-            <h2>11.1 Conclusion</h2>
-            <p>Building Quizzax was a challenging but rewarding experience for U24 MMED. We successfully moved from a
-                basic idea to a fully functional web application that actually works. While we faced some tricky
-                bugs—especially with the timer synchronization and UI layout—we learned a lot about full-stack
-                development. The final product meets all the core requirements: it's secure, fast, and saves the faculty
-                a lot of manual work.</p>
-
-            <h2>11.2 Glossary of Terms</h2>
-            <table>
-                <tr>
-                    <th>Term</th>
-                    <th>Definition</th>
-                </tr>
-                <tr>
-                    <td><strong>API</strong></td>
-                    <td>Application Programming Interface.</td>
-                </tr>
-                <tr>
-                    <td><strong>MERN</strong></td>
-                    <td>MongoDB, Express, React (Vanilla), Node.js stack.</td>
-                </tr>
-                <tr>
-                    <td><strong>SDLC</strong></td>
-                    <td>Software Development Lifecycle.</td>
-                </tr>
-                <tr>
-                    <td><strong>SPA</strong></td>
-                    <td>Single Page Application.</td>
-                </tr>
-                <tr>
-                    <td><strong>Fisher-Yates</strong></td>
-                    <td>An algorithm for generating a random permutation of a finite sequence.</td>
-                </tr>
-            </table>
-
-            <div style="margin-top: 100px; text-align: center; font-style: italic;">
-                <p>*** End of Report ***</p>
-            </div>
-        </div>
-
-    </div>
 </body>
 
 </html>
