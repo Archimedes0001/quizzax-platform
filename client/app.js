@@ -295,7 +295,7 @@ async function restoreSession(subject, sessionData) {
             if (AppState.timer <= 0) {
                 clearInterval(AppState.timerInterval);
                 showToast("Time's up! Submitting quiz.", 'error');
-                submitQuiz();
+                submitQuiz(true);
             }
         }, 1000);
 
@@ -871,7 +871,7 @@ async function navigateToQuiz(subject) {
             if (AppState.timer <= 0) {
                 clearInterval(AppState.timerInterval);
                 showToast("Time's up! Submitting quiz.", 'error');
-                submitQuiz();
+                submitQuiz(true);
             }
         }, 1000);
 
@@ -1032,7 +1032,12 @@ function skipQuestion() {
     }
 }
 
-function submitQuiz() {
+function submitQuiz(force = false) {
+    if (force) {
+        confirmSubmit();
+        return;
+    }
+
     const total = AppState.currentQuiz.questions.length;
     const answeredCount = Object.values(AppState.answers).filter(a => a.selected !== null).length;
     const unansweredCount = total - answeredCount;
