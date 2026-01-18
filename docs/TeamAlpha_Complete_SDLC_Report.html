@@ -767,6 +767,15 @@ function shuffle(array) {
                 <p><strong>Solution:</strong> We applied `overflow-y: scroll` global CSS to ensure the scrollbar track
                     is always present, stabilizing the layout.</p>
             </div>
+
+            <div class="step-box">
+                <span class="step-num">Case Study: Auto-Submission Logic</span>
+                <p><strong>Problem:</strong> Originally, when the timer hit 00:00, the system triggered a "Confirm
+                    Submission?" dialog. This was problematic as it allowed students to stall.</p>
+                <p><strong>Solution:</strong> We refactored the <code>submitQuiz()</code> function to accept a
+                    <code>force</code> parameter. When triggered by the timer, <code>submitQuiz(true)</code> is called,
+                    bypassing the confirmation modal and ensuring instant, fail-safe submission.</p>
+            </div>
         </div>
 
         <!-- PHASE 6: GIT -->
@@ -917,6 +926,13 @@ $ git push -u origin main
                     <td>1. Not implemented yet</td>
                     <td>N/A</td>
                     <td>SKIP</td>
+                </tr>
+                <tr>
+                    <td>TC-11</td>
+                    <td>Force Auto-Submit</td>
+                    <td>1. Wait for timer to reach 00:00</td>
+                    <td>Quiz submits IMMEDIATELY without "Are you sure?" popup.</td>
+                    <td><strong>PASS</strong></td>
                 </tr>
             </table>
         </div>
