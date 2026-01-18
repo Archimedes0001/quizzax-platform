@@ -434,20 +434,32 @@
 
             <h3>FR-01: Restricted Access Login (Must Have)</h3>
             <div class="step-box">
-                <span class="step-num">Detailed Flow</span>
-                <p>The system must ensure that only authorized students can access the platform.</p>
-                <ul>
-                    <li><strong>Input:</strong> User enters matric number (e.g., 'U24ICE1024') on the login screen.</li>
+                <span class="step-num">Overview</span>
+                <p>The system must ensure that only authorized students can access the platform. This is critical to
+                    examine integrity.</p>
+                <span class="step-num">Detailed Flow of Events</span>
+                <ol>
+                    <li><strong>Pre-condition:</strong> Student must be in the `server/utils/studentData.js` authorized
+                        list.</li>
+                    <li><strong>Trigger:</strong> User accesses the root URL `/`.</li>
+                    <li><strong>Action:</strong> User enters matric number (e.g., 'U24ICE1024') on the login screen.
+                    </li>
                     <li><strong>Process:</strong>
-                        1. Client inputs are sanitized to prevent NoSQL injection.
-                        2. A POST request is sent to `/api/login`.
-                        3. Server queries the `users` collection for an exact match.
+                        <ul>
+                            <li>Client inputs are trimmed and sanitized to prevent NoSQL injection.</li>
+                            <li>A POST request is sent to `/api/login` with the payload.</li>
+                            <li>Server queries the `users` collection for an exact string match.</li>
+                        </ul>
                     </li>
                     <li><strong>Output (Success):</strong> 200 OK Response. Client receives user object. Redirection to
                         Dashboard.</li>
                     <li><strong>Output (Fail):</strong> 403 Unauthorized. "Matric number not found" toast message
                         displayed.</li>
-                </ul>
+                    <li><strong>Post-condition:</strong> User session is initialized in Javascript state.</li>
+                </ol>
+                <span class="step-num">Use Case Diagram Description</span>
+                <p><strong>Actor:</strong> Student. <strong>System:</strong> Auth Module. <strong>Relationship:</strong>
+                    'Verifies' credentials against Database.</p>
             </div>
 
             <h3>FR-02: Randomized Question Delivery (Must Have)</h3>
@@ -518,6 +530,38 @@
             <h2>2.1 System Architecture Document</h2>
             <p>Quizzax utilizes a <strong>Three-Tier MERN Architecture</strong> (MongoDB, Express, React-concept/Vanilla
                 JS, Node).</p>
+
+            <h3>2.1.1 Justification for Technology Stack</h3>
+            <p>We carefully selected each component of our stack based on specific engineering criteria:</p>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Choice</th>
+                    <th>Alternatives Considered</th>
+                    <th>Reason for Selection</th>
+                </tr>
+                <tr>
+                    <td><strong>Frontend</strong></td>
+                    <td>Vanilla JS</td>
+                    <td>React, Vue</td>
+                    <td>Minimal overhead. React adds a 200KB bundle size which is unnecessary for a project this size.
+                        Vanilla JS ensures we understand the DOM methods deeply.</td>
+                </tr>
+                <tr>
+                    <td><strong>Backend</strong></td>
+                    <td>Node.js</td>
+                    <td>Python (Flask), PHP</td>
+                    <td><strong>Non-blocking I/O:</strong> Node.js handles thousands of concurrent connections (timer
+                        syncs) better than threaded models like PHP. Unified language (JS) on both ends.</td>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>MongoDB</td>
+                    <td>MySQL, PostgreSQL</td>
+                    <td><strong>Schema Flexibility:</strong> We need to store diverse question formats (some with
+                        images, some text-only). A document store allows this heterogeneity easily.</td>
+                </tr>
+            </table>
 
             <h3>Tier 1: Presentation Layer (Client)</h3>
             <p>Built with Vanilla JavaScript (ES6+), HTML5, and CSS3. We avoided heavy frameworks like React for this
