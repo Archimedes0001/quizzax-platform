@@ -751,9 +751,75 @@ function shuffle(array) {
     }
     return array;
 }
+    return array;
+}
             </code></pre>
 
-            <h2>5.4 Challenges & Problem Solving</h2>
+            <h2>5.4 Data Persistence Engine (Crash Recovery)</h2>
+            <p>One of the most critical features for "Presentation Points" is the <strong>Dual-Layer Persistence
+                    System</strong>. This ensures that if a student's laptop battery dies or the browser crashes, they
+                can resume <em>exactly</em> where they left off.</p>
+            <p><strong>Mechanism:</strong></p>
+            <ul>
+                <li><strong>Local Layer:</strong> Every 30 seconds (and on every answer change), the state is serialized
+                    to `localStorage`.</li>
+                <li><strong>Remote Layer:</strong> An asynchronous background request sends this state to MongoDB.</li>
+            </ul>
+            <pre><code>
+// client/app.js - Persistence Logic
+function triggerSave() {
+    if (!AppState.user) return;
+
+    const sessionData = {
+        currentQuestionIndex: AppState.currentQuestionIndex,
+        answers: AppState.answers,
+        timer: AppState.timer
+    };
+
+    // 1. Instant Synchronous Save (Fast)
+    localStorage.setItem('quizProgress', JSON.stringify(sessionData));
+
+    // 2. Asynchronous Server Background Sync (Reliable)
+    API.saveProgress(AppState.user.matricNumber, sessionData);
+}
+            </code></pre>
+
+            <h2>5.5 Centralized API Wrapper</h2>
+            <p>Instead of scattering `fetch` calls throughout the application, we implemented a <strong>Unified Request
+                    Wrapper</strong>. This Design Pattern allows us to handle errors (like 401 Unauthorized or Network
+                Failures) in one single place, keeping the business logic clean.</p>
+            <pre><code>
+// Standardized Error Handling Pattern
+async request(endpoint, options = {}) {
+    try {
+        const res = await fetch(this.baseURL + endpoint, options);
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+        return await res.json();
+    } catch (err) {
+        console.error("API Failure:", err);
+        showToast(err.message, 'error'); // User Feedback
+        throw err;
+    }
+}
+            </code></pre>
+
+            <h2>5.6 Project Directory Structure</h2>
+            <p>We followed industry-standard directory separation to decouple the Frontend from the Backend.</p>
+            <pre>
+/quiz_app
+├── client/              # Frontend Tier
+│   ├── index.html       # Entry Point
+│   ├── styles.css       # Global Styles & Glassmorphism
+│   └── app.js           # SPA Logic & State Store
+├── server/              # Backend Tier
+│   ├── models/          # Mongoose Schemas (User.js)
+│   ├── utils/           # Helper Functions (seedData.js)
+│   └── index.js         # Express API Routes
+├── docs/                # SDLC Documentation
+└── package.json         # Dependency Manifest
+            </pre>
+
+            <h2>5.7 Challenges & Problem Solving</h2>
             <p>During implementation, we encountered several non-trivial bugs. We utilized technical communities like
                 <strong>Stack Overflow</strong> and MDN Docs to find solutions.
             </p>
@@ -774,7 +840,8 @@ function shuffle(array) {
                     Submission?" dialog. This was problematic as it allowed students to stall.</p>
                 <p><strong>Solution:</strong> We refactored the <code>submitQuiz()</code> function to accept a
                     <code>force</code> parameter. When triggered by the timer, <code>submitQuiz(true)</code> is called,
-                    bypassing the confirmation modal and ensuring instant, fail-safe submission.</p>
+                    bypassing the confirmation modal and ensuring instant, fail-safe submission.
+                </p>
             </div>
         </div>
 
