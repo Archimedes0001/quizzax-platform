@@ -51,7 +51,7 @@ const seedUsers = async () => {
                 {
                     name: student.name,
                     department: student.department,
-                    level: '100L' // Default level
+                    level: '200L' // Default level
                 },
                 { upsert: true, new: true }
             );
