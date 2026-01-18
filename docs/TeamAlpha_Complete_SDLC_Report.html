@@ -235,7 +235,15 @@
 <body>
     <button onclick="window.print()" class="print-btn no-print">🖨️ CLICK TO SAVE AS PDF (Full Report)</button>
 
-    <div class="container">
+    <div class="container" contenteditable="true" spellcheck="false" style="outline: none;">
+        <!-- EDITING TIP -->
+        <div class="no-print"
+            style="background: #fff3cd; color: #856404; padding: 10px; margin-bottom: 20px; border: 1px solid #ffeeba; border-radius: 4px; text-align: center;">
+            ✏️ <strong>EDIT MODE ENABLED:</strong> You can click and type anywhere in this document to make changes
+            before printing. <br>
+            <em>Note: Changes are temporary and will be lost if you refresh (F5).</em>
+        </div>
+
         <!-- COVER PAGE -->
         <div class="cover-page">
             <div class="cover-title">QUIZZAX PLATFORM</div>
@@ -353,6 +361,55 @@
                     <td>Developers</td>
                     <td>High</td>
                     <td>Successful project completion, learning outcomes.</td>
+                </tr>
+            </table>
+
+            <h2>1.5 Project Methodology</h2>
+            <p>We adopted the **Agile Scrum Methodology** for this project. This iterative approach allowed us to adapt
+                to changing requirements and deliver incremental value.</p>
+            <ul>
+                <li><strong>Sprints:</strong> Logic and UI were developed in 1-week sprints.</li>
+                <li><strong>Daily Standups:</strong> Short meetings to discuss blockers (e.g., the Scrollbar Flicker
+                    bug).</li>
+                <li><strong>Review:</strong> End-of-week verification against the rubric.</li>
+            </ul>
+
+            <h2>1.6 Risk Management Plan</h2>
+            <table>
+                <tr>
+                    <th>Risk ID</th>
+                    <th>Risk Description</th>
+                    <th>Likelihood</th>
+                    <th>Impact</th>
+                    <th>Mitigation Strategy</th>
+                </tr>
+                <tr>
+                    <td>R-01</td>
+                    <td>Database Connectivity Failure</td>
+                    <td>Low</td>
+                    <td>High</td>
+                    <td>Implement connection retry logic and error toasts.</td>
+                </tr>
+                <tr>
+                    <td>R-02</td>
+                    <td>Incomplete Requirement Understanding</td>
+                    <td>Medium</td>
+                    <td>High</td>
+                    <td>Constant consultation with the assignment rubric.</td>
+                </tr>
+                <tr>
+                    <td>R-03</td>
+                    <td>Git Merge Conflicts</td>
+                    <td>High</td>
+                    <td>Medium</td>
+                    <td>Strict branching strategy (feature branches) and code reviews.</td>
+                </tr>
+                <tr>
+                    <td>R-04</td>
+                    <td>Timeline Slippage</td>
+                    <td>Medium</td>
+                    <td>High</td>
+                    <td>Buffer time allocated before submission deadline.</td>
                 </tr>
             </table>
         </div>
@@ -539,6 +596,19 @@
             </ul>
             <p><strong>Mobile Responsiveness:</strong> On strict mobile viewports (< 768px), the Sidebar collapses into
                     a drawer or moves to the bottom to prioritize the question text.</p>
+
+                    <h3>4.3 CSS Implementation (Glassmorphism)</h3>
+                    <p>The following CSS class is applied to all cards to achieve the signature look:</p>
+                    <pre><code>
+.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);  /* The core blur effect */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border-radius: 16px;
+}
+            </code></pre>
         </div>
 
         <!-- PHASE 5: IMPLEMENTATION -->
@@ -789,7 +859,8 @@ $ git push -u origin main
                 <span class="step-num">Step 1: Cluster Provisioning</span>
                 <p>We navigated to <a href="https://mongodb.com/atlas">MongoDB Atlas</a> and created a new account. We
                     selected the <strong>Shared (Free) Tier</strong> to avoid costs during development. We chose
-                    <strong>AWS (us-east-1)</strong> as the region for low latency.</p>
+                    <strong>AWS (us-east-1)</strong> as the region for low latency.
+                </p>
             </div>
 
             <div class="step-box">
