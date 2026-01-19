@@ -1260,7 +1260,8 @@ $ git push -u origin main
                     <div class="step-box">
                         <span class="step-num">Step 3: Backend Deployment</span>
                         <p>Linked the GitHub repository to a Render Web Service. Set the Build Command to
-                            <code>npm install</code> and Start Command to <code>node server/index.js</code>.</p>
+                            <code>npm install</code> and Start Command to <code>node server/index.js</code>.
+                        </p>
                     </div>
 
                     <div class="step-box">
@@ -1296,9 +1297,10 @@ $ git push -u origin main
                                 <td>Wait 60 seconds. Free tier spins down after inactivity.</td>
                             </tr>
                             <tr>
-                                <td><strong>Blank PDF</strong></td>
-                                <td>CSS Print Media Query</td>
-                                <td>Ensure "Headers & Footers" is unchecked in Print Dialog.</td>
+                                <td><strong>Variable Namespace Collision</strong></td>
+                                <td>Global scope pollution between components.</td>
+                                <td>Encapsulated all logic within a singleton <code>AppState</code> object to prevent
+                                    state overwriting during navigation.</td>
                             </tr>
                             <tr>
                                 <td><strong>Login Loop</strong></td>
