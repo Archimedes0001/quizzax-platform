@@ -1,16 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Login({ setUser }) {
     const [matricNumber, setMatricNumber] = useState('');
     const [department, setDepartment] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showWakeUpMessage, setShowWakeUpMessage] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setShowWakeUpMessage(false);
+
+        const timer = setTimeout(() => {
+            setShowWakeUpMessage(true);
+        }, 3000);
+
         try {
             const res = await fetch('/api/login', {
                 method: 'POST',
@@ -29,7 +36,9 @@ export default function Login({ setUser }) {
             console.error(err);
             alert('Login failed');
         } finally {
+            clearTimeout(timer);
             setLoading(false);
+            setShowWakeUpMessage(false);
         }
     };
 
@@ -84,6 +93,22 @@ export default function Login({ setUser }) {
                             </svg>
                         ) : "Start Learning"}
                     </button>
+
+                    <AnimatePresence>
+                        {showWakeUpMessage && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0 }}
+                                className="mt-4 p-4 bg-app-accent/10 rounded-xl border border-app-accent/20 text-center"
+                            >
+                                <p className="text-xs text-app-dark/60 leading-relaxed font-medium">
+                                    Server is waking up from sleep mode... <br />
+                                    This may take 30-50 seconds on the first try.
+                                </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </form>
             </motion.div>
         </div>

@@ -7,6 +7,7 @@ export default function Quiz({ user }) {
     const { subject } = useParams();
     const navigate = useNavigate();
     const [quizData, setQuizData] = useState(null);
+    const [showWakeUpMessage, setShowWakeUpMessage] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(null);
     const [showExplanation, setShowExplanation] = useState(false);
@@ -14,14 +15,24 @@ export default function Quiz({ user }) {
     const [answers, setAnswers] = useState([]); // Track for history
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!quizData) setShowWakeUpMessage(true);
+        }, 3000);
+
         fetch(`/api/quizzes/${subject}`)
             .then(res => res.json())
-            .then(data => setQuizData(data))
+            .then(data => {
+                setQuizData(data);
+                setShowWakeUpMessage(false);
+                clearTimeout(timer);
+            })
             .catch(err => {
                 console.error(err);
                 alert("Failed to load quiz");
                 navigate('/home');
             });
+
+        return () => clearTimeout(timer);
     }, [subject, navigate]);
 
     const handleOptionSelect = (index) => {
@@ -107,7 +118,31 @@ export default function Quiz({ user }) {
         }
     };
 
-    if (!quizData) return <div className="p-8 text-center">Loading...</div>;
+    if (!quizData) return (
+        <div className="p-8 h-screen flex flex-col items-center justify-center text-center">
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                className="w-12 h-12 border-4 border-app-accent border-t-app-dark rounded-full mb-6"
+            />
+            <h2 className="text-xl font-bold text-app-dark mb-2">Loading Quiz...</h2>
+            <AnimatePresence>
+                {showWakeUpMessage && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="max-w-xs"
+                    >
+                        <p className="text-sm text-app-dark/60 leading-relaxed">
+                            The server is waking up from its sleep. <br />
+                            This usually takes <strong>30-50 seconds</strong>. <br />
+                            Thank you for your patience!
+                        </p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
 
     const currentQuestion = quizData.questions[currentQuestionIndex];
     const progress = ((currentQuestionIndex + 1) / quizData.questions.length) * 100;

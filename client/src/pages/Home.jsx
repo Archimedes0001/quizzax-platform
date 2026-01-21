@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Box, Atom, FlaskConical, Calculator, Search, User as UserIcon } from 'lucide-react';
 
 const icons = {
@@ -9,14 +9,25 @@ const icons = {
 
 export default function Home({ user }) {
     const [quizzes, setQuizzes] = useState([]);
+    const [showWakeUpMessage, setShowWakeUpMessage] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            if (quizzes.length === 0) setShowWakeUpMessage(true);
+        }, 3000);
+
         fetch('/api/quizzes')
             .then(res => res.json())
-            .then(data => setQuizzes(data))
+            .then(data => {
+                setQuizzes(data);
+                setShowWakeUpMessage(false);
+                clearTimeout(timer);
+            })
             .catch(err => console.error(err));
-    }, []);
+
+        return () => clearTimeout(timer);
+    }, [quizzes.length]);
 
     if (!user) return null;
 
@@ -48,6 +59,33 @@ export default function Home({ user }) {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+                <AnimatePresence>
+                    {quizzes.length === 0 && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="col-span-2 py-12 flex flex-col items-center justify-center text-center"
+                        >
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="w-10 h-10 border-4 border-app-accent border-t-app-dark rounded-full mb-4"
+                            />
+                            <p className="font-medium text-app-dark/70 mb-2">Finding your subjects...</p>
+                            {showWakeUpMessage && (
+                                <motion.p
+                                    initial={{ opacity: 0, y: 5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="text-xs text-app-dark/50 max-w-[200px]"
+                                >
+                                    The server is waking up. <br />
+                                    This might take a moment.
+                                </motion.p>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
                 {quizzes.map((quiz, i) => {
                     const Icon = icons[quiz.icon] || Box;
                     // Apply different simple styles for variety or use the color from DB if valid class
